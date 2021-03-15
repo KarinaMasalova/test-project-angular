@@ -1,0 +1,18 @@
+@import '../../../colors';
+
+::ng-deep {
+  .mat-tab-header {
+    border: none;
+  }
+
+  .mat-tab-label {
+    min-width: 600px !important;
+    &-active {
+      color: $colorPrimary;
+    }
+  }
+
+  .mat-ink-bar {
+    background-color: $colorPrimary !important;
+  }
+}

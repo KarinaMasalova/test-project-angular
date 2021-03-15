@@ -1,0 +1,7 @@
+@mixin font($family: 'Open Sans', $size: 1.4rem, $weight: normal, $style: normal, $spacing: 0) {
+  font-family: $family, 'Verdana', sans-serif;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+  letter-spacing: $spacing;
+}
