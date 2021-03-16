@@ -1,22 +1,6 @@
-@import '~@angular/material/theming';
 @import 'colors';
 @import 'mixins';
-
-// Available color palettes: https://material.io/design/color/
-$angular-app-primary: mat-palette($mat-indigo);
-$angular-app-accent: mat-palette($mat-pink, A200, A100, A400);
-$angular-app-warn: mat-palette($mat-red); //optional
-
-$angular-app-theme: mat-light-theme((
-  color: (
-    primary: $angular-app-primary,
-    accent: $angular-app-accent,
-    warn: $angular-app-warn,
-  )
-));
-
-@include angular-material-theme($angular-app-theme);
-@include mat-core();
+@import 'theme';
 
 html {
   height: 100%;

@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+@import 'mixins';
+
+@include mat-core();
+
+// light mode
+$light-primary: mat-palette($mat-grey, 50);
+$light-accent: mat-palette($mat-grey, 800);
+// dark mode
+$dark-primary: mat-palette($mat-grey, 800);
+$dark-accent: mat-palette($mat-amber, 700);
+
+$light-theme: mat-light-theme($light-primary, $light-accent);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent);
+
+@media (prefers-color-scheme: light) {
+  @include angular-material-theme($light-theme);
+  @include custom-components-theme($light-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+  @include angular-material-theme($dark-theme);
+  @include custom-components-theme($dark-theme);
+}
