@@ -13,12 +13,12 @@ $dark-accent: mat-palette($mat-amber, 700);
 $light-theme: mat-light-theme($light-primary, $light-accent);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent);
 
-@media (prefers-color-scheme: light) {
+.light-theme {
   @include angular-material-theme($light-theme);
   @include custom-components-theme($light-theme);
 }
 
-@media (prefers-color-scheme: dark) {
+.dark-theme {
   @include angular-material-theme($dark-theme);
   @include custom-components-theme($dark-theme);
 }
