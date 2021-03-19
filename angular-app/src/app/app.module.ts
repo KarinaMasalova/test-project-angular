@@ -4,6 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from "@angular/material/tabs";
 import { MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from '@angular/material/input';
+import {MatSortModule} from "@angular/material/sort";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +18,7 @@ import { HeaderOptionsMenuComponent } from './components/header-options-menu/hea
 import { ToggleComponent } from './components/common/toggle/toggle.component';
 import { PeopleOverviewComponent } from './containers/people-overview/people-overview.component';
 import { ChartsOverviewComponent } from './containers/charts-overview/charts-overview.component';
+import { PeopleTableComponent } from './components/people-table/people-table.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,8 @@ import { ChartsOverviewComponent } from './containers/charts-overview/charts-ove
     HeaderOptionsMenuComponent,
     ToggleComponent,
     PeopleOverviewComponent,
-    ChartsOverviewComponent
+    ChartsOverviewComponent,
+    PeopleTableComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,12 @@ import { ChartsOverviewComponent } from './containers/charts-overview/charts-ove
     BrowserAnimationsModule,
     MatTabsModule,
     MatMenuModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
