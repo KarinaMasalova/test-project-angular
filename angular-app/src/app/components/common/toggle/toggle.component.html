@@ -1,5 +1,8 @@
 <div class="toggle">
   {{lightMode}}
-  <mat-slide-toggle></mat-slide-toggle>
+  <mat-slide-toggle
+    (change)="changeTheme()"
+    [checked]="isDarkMode()"
+  ></mat-slide-toggle>
   {{darkMode}}
 </div>

@@ -10,6 +10,6 @@ import { ColorSchemeService } from "./services/color-scheme/color-scheme.service
 
 export class AppComponent {
   constructor(private colorSchemeService: ColorSchemeService) {
-    this.colorSchemeService.load();
+    this.colorSchemeService.initTheme();
   }
 }

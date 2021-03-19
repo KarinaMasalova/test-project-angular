@@ -1,38 +1,54 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class ColorSchemeService {
   private renderer: Renderer2;
-  private colorScheme: string = window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+  private colorTheme: string = '';
+  private isDarkTheme: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
-  setColorScheme(scheme: string) {
-    this.colorScheme = scheme;
-    localStorage.setItem('prefers-color', scheme);
+  initTheme() {
+    this.getColorTheme();
+    this.renderer.addClass(document.body, this.colorTheme);
   }
 
-  getColorScheme() {
-    if (localStorage.getItem('prefers-color')) {
-      this.colorScheme = JSON.parse(localStorage.getItem('prefers-color') || '{}');
+  isDarkMode() {
+    return this.colorTheme === 'dark-theme';
+  }
+
+  private setColorTheme(theme: string) {
+    this.colorTheme = theme;
+    localStorage.setItem('theme', theme);
+  }
+
+  private getColorTheme() {
+    if (localStorage.getItem('theme')) {
+      this.colorTheme = localStorage.getItem('theme') || '';
+    } else {
+      this.colorTheme = this.isDarkTheme
+        ? 'dark-theme'
+        : 'light-theme';
+      localStorage.setItem('theme', this.colorTheme);
     }
   }
 
-  load() {
-    this.getColorScheme();
-    this.renderer.addClass(document.body, `${this.colorScheme}-theme`);
+  update(theme: 'dark-theme' | 'light-theme') {
+    this.setColorTheme(theme);
+    const previousColorTheme = (theme === 'dark-theme') ? 'light-theme' : 'dark-theme';
+    this.renderer.removeClass(document.body, previousColorTheme);
+    this.renderer.addClass(document.body, theme);
   }
 
-  update(scheme: string) {
-    this.setColorScheme(scheme);
-    this.renderer.removeClass( document.body, `${(this.colorScheme === 'dark' ? 'light' : 'dark')}-theme`);
-    this.renderer.addClass(document.body, `${scheme}-theme`);
+  toggleDarkMode() {
+    this.isDarkTheme = this.isDarkMode();
+    this.isDarkTheme
+      ? this.update('light-theme')
+      : this.update('dark-theme');
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ColorSchemeService } from "../../../services/color-scheme/color-scheme.service";
+
 @Component({
   selector: 'app-toggle',
   templateUrl: './toggle.component.html',
@@ -9,9 +11,16 @@ export class ToggleComponent implements OnInit {
   lightMode = 'Light';
   darkMode = 'Dark';
 
-  constructor() { }
+  constructor(private colorSchemeService: ColorSchemeService) {}
+
+  changeTheme(): void {
+    this.colorSchemeService.toggleDarkMode();
+  }
+
+  isDarkMode() {
+    return this.colorSchemeService.isDarkMode();
+  }
 
   ngOnInit(): void {
   }
-
 }
