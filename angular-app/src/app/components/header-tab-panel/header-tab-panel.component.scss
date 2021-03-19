@@ -3,17 +3,18 @@
 ::ng-deep {
   .mat-tab-header {
     border: none !important;
-  }
 
-  .mat-tab-label {
-    min-width: 600px !important;
-    &-active {
-      color: $colorPrimary !important;
+    .mat-tab-link {
+      min-width: 600px !important;
+
+      &.mat-tab-label-active {
+        opacity: 1 !important;
+        color: $colorPrimary !important;
+      }
     }
-  }
 
-  .mat-ink-bar {
-    background-color: $colorPrimary !important;
-    height: 3px !important;
+    .mat-ink-bar {
+      background-color: $colorPrimary !important;
+    }
   }
 }
