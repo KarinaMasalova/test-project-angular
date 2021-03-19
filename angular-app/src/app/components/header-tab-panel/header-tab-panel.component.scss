@@ -2,13 +2,13 @@
 
 ::ng-deep {
   .mat-tab-header {
-    border: none;
+    border: none !important;
   }
 
   .mat-tab-label {
     min-width: 600px !important;
     &-active {
-      color: $colorPrimary;
+      color: $colorPrimary !important;
     }
   }
 

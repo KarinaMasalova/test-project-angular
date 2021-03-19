@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @import 'mixins';
+@import 'colors';
 
 @include mat-core();
 
@@ -16,9 +17,12 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent);
 .light-theme {
   @include angular-material-theme($light-theme);
   @include custom-components-theme($light-theme);
+  color: $backgroundDarkMode;
 }
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
   @include custom-components-theme($dark-theme);
+  background-color: $backgroundDarkMode;
+  color: $colorTextDarkMode;
 }
