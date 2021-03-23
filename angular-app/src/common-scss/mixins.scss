@@ -8,7 +8,7 @@
   letter-spacing: $spacing;
 }
 
-// custom components
+// custom pages
 
 @mixin header-theme($theme) {
   $primary: map-get($theme, primary);

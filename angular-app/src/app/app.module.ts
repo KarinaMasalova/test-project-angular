@@ -12,13 +12,13 @@ import {MatSortModule} from "@angular/material/sort";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderTabPanelComponent } from './components/header/header-tab-panel/header-tab-panel.component';
-import { HeaderComponent } from './components/header/header.component';
-import { HeaderOptionsMenuComponent } from './components/header/header-options-menu/header-options-menu.component';
-import { ThemeToggleComponent } from './components/header/theme-toggle/theme-toggle.component';
-import { PeopleComponent } from './components/people/people.component';
-import { ChartsComponent } from './components/charts/charts.component';
-import { PeopleTableComponent } from './components/people/people-table/people-table.component';
+import { HeaderTabPanelComponent } from '../common/components/header/header-tab-panel/header-tab-panel.component';
+import { HeaderComponent } from '../common/components/header/header.component';
+import { HeaderOptionsMenuComponent } from '../common/components/header/header-options-menu/header-options-menu.component';
+import { ThemeToggleComponent } from '../common/components/header/theme-toggle/theme-toggle.component';
+import { PeopleComponent } from '../pages/people/people.component';
+import { ChartsComponent } from '../pages/charts/charts.component';
+import { PeopleTableComponent } from '../pages/people/people-table/people-table.component';
 
 @NgModule({
   declarations: [

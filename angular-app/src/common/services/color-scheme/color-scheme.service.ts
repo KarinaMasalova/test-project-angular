@@ -6,14 +6,14 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 export class ColorSchemeService {
   private renderer: Renderer2;
-  private isDarkTheme: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  private colorTheme: string =  localStorage.getItem('theme') ||
-    this.isDarkTheme ? 'dark-theme' : 'light-theme';
+  private colorTheme: string = '';
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
-    // console.log('localStorage', localStorage.getItem('theme'));
-    // console.log(this.colorTheme);
+    this.colorTheme = localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark-theme'
+        : 'light-theme');
   }
 
   private getColorTheme() {
@@ -42,8 +42,7 @@ export class ColorSchemeService {
   }
 
   toggleDarkMode(): void {
-    this.isDarkTheme = this.isDarkMode();
-    this.isDarkTheme
+    this.colorTheme === 'dark-theme'
       ? this.updateTheme('light-theme')
       : this.updateTheme('dark-theme');
   }

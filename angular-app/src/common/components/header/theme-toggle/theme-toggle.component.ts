@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ColorSchemeService } from "../../../common/services/color-scheme/color-scheme.service";
+import { ColorSchemeService } from "../../../services/color-scheme/color-scheme.service";
 
 enum Themes {
   light = 'Light',
