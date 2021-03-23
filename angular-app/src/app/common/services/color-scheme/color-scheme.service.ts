@@ -8,12 +8,12 @@ export class ColorSchemeService {
   private renderer: Renderer2;
   private isDarkTheme: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
   private colorTheme: string =  localStorage.getItem('theme') ||
-    this.isDarkTheme
-      ? 'dark-theme'
-      : 'light-theme';
+    this.isDarkTheme ? 'dark-theme' : 'light-theme';
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
+    // console.log('localStorage', localStorage.getItem('theme'));
+    // console.log(this.colorTheme);
   }
 
   private getColorTheme() {
@@ -25,8 +25,7 @@ export class ColorSchemeService {
     localStorage.setItem('theme', theme);
   }
 
-  getDarkMode(): boolean {
-    // return this.isDarkTheme;
+  isDarkMode(): boolean {
     return this.colorTheme === 'dark-theme';
   }
 
@@ -43,7 +42,7 @@ export class ColorSchemeService {
   }
 
   toggleDarkMode(): void {
-    this.isDarkTheme = this.getDarkMode(); // this.colorTheme === 'dark-theme';
+    this.isDarkTheme = this.isDarkMode();
     this.isDarkTheme
       ? this.updateTheme('light-theme')
       : this.updateTheme('dark-theme');

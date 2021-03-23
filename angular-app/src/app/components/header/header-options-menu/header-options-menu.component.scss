@@ -1,4 +1,4 @@
-@import '../../../common-scss/colors';
+@import '../../../../common-scss/colors';
 
 ::ng-deep {
   .options-menu {
@@ -10,6 +10,10 @@
       outline: none;
       border: none;
       background-color: $colorPrimary;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.7;
+      }
     }
   }
 
