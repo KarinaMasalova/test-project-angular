@@ -12,13 +12,13 @@ import {MatSortModule} from "@angular/material/sort";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderTabPanelComponent } from './components/header-tab-panel/header-tab-panel.component';
-import { HeaderComponent } from './containers/header/header.component';
-import { HeaderOptionsMenuComponent } from './components/header-options-menu/header-options-menu.component';
-import { ToggleComponent } from './components/common/toggle/toggle.component';
-import { PeopleOverviewComponent } from './containers/people-overview/people-overview.component';
-import { ChartsOverviewComponent } from './containers/charts-overview/charts-overview.component';
-import { PeopleTableComponent } from './components/people-table/people-table.component';
+import { HeaderTabPanelComponent } from './components/header/header-tab-panel/header-tab-panel.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HeaderOptionsMenuComponent } from './components/header/header-options-menu/header-options-menu.component';
+import { ThemeToggleComponent } from './components/header/theme-toggle/theme-toggle.component';
+import { PeopleComponent } from './components/people/people.component';
+import { ChartsComponent } from './components/charts/charts.component';
+import { PeopleTableComponent } from './components/people/people-table/people-table.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +26,9 @@ import { PeopleTableComponent } from './components/people-table/people-table.com
     HeaderTabPanelComponent,
     HeaderComponent,
     HeaderOptionsMenuComponent,
-    ToggleComponent,
-    PeopleOverviewComponent,
-    ChartsOverviewComponent,
+    ThemeToggleComponent,
+    PeopleComponent,
+    ChartsComponent,
     PeopleTableComponent
   ],
   imports: [

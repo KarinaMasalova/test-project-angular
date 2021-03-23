@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToggleComponent } from './toggle.component';
+import { ChartsComponent } from './charts.component';
 
-describe('ToggleComponent', () => {
-  let component: ToggleComponent;
-  let fixture: ComponentFixture<ToggleComponent>;
+describe('ChartsOverviewComponent', () => {
+  let component: ChartsComponent;
+  let fixture: ComponentFixture<ChartsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ToggleComponent ]
+      declarations: [ ChartsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToggleComponent);
+    fixture = TestBed.createComponent(ChartsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

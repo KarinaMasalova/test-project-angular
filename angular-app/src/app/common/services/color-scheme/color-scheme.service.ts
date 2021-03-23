@@ -6,20 +6,18 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 export class ColorSchemeService {
   private renderer: Renderer2;
-  private colorTheme: string = '';
   private isDarkTheme: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  private colorTheme: string =  localStorage.getItem('theme') ||
+    this.isDarkTheme
+      ? 'dark-theme'
+      : 'light-theme';
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
-  initTheme() {
-    this.getColorTheme();
-    this.renderer.addClass(document.body, this.colorTheme);
-  }
-
-  isDarkMode() {
-    return this.colorTheme === 'dark-theme';
+  private getColorTheme() {
+    return this.colorTheme;
   }
 
   private setColorTheme(theme: string) {
@@ -27,28 +25,27 @@ export class ColorSchemeService {
     localStorage.setItem('theme', theme);
   }
 
-  private getColorTheme() {
-    if (localStorage.getItem('theme')) {
-      this.colorTheme = localStorage.getItem('theme') || '';
-    } else {
-      this.colorTheme = this.isDarkTheme
-        ? 'dark-theme'
-        : 'light-theme';
-      localStorage.setItem('theme', this.colorTheme);
-    }
+  getDarkMode(): boolean {
+    // return this.isDarkTheme;
+    return this.colorTheme === 'dark-theme';
   }
 
-  update(theme: 'dark-theme' | 'light-theme') {
+  initTheme(): void {
+    this.getColorTheme();
+    this.renderer.addClass(document.body, this.colorTheme);
+  }
+
+  updateTheme(theme: 'dark-theme' | 'light-theme'): void {
     this.setColorTheme(theme);
     const previousColorTheme = (theme === 'dark-theme') ? 'light-theme' : 'dark-theme';
     this.renderer.removeClass(document.body, previousColorTheme);
     this.renderer.addClass(document.body, theme);
   }
 
-  toggleDarkMode() {
-    this.isDarkTheme = this.isDarkMode();
+  toggleDarkMode(): void {
+    this.isDarkTheme = this.getDarkMode(); // this.colorTheme === 'dark-theme';
     this.isDarkTheme
-      ? this.update('light-theme')
-      : this.update('dark-theme');
+      ? this.updateTheme('light-theme')
+      : this.updateTheme('dark-theme');
   }
 }
