@@ -9,6 +9,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from "@angular/material/sort";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,7 +43,8 @@ import { PeopleTableComponent } from '../pages/people/people-table/people-table.
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSortModule
+    MatSortModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
