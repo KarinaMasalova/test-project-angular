@@ -15,14 +15,13 @@ import { UserService } from "../../../common/services/user/user.service";
 export class PeopleTableComponent implements AfterViewInit {
   displayedColumns: string[] = columns;
   dataSource!: MatTableDataSource<User>;
-  users!: User[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
   constructor(private userService: UserService) {
     this.showUsers();
-    // this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource();
   }
 
   ngAfterViewInit() {
@@ -41,7 +40,7 @@ export class PeopleTableComponent implements AfterViewInit {
 
   showUsers() {
     return this.userService.getUsers()
-      .subscribe(users => this.users = users);
+      .subscribe(users => this.dataSource.data = users);
   }
 
   log(desc: string, val: any) {
