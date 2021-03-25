@@ -37,7 +37,7 @@ export class HttpClientService {
       );
   }
 
-  delete<T>(url: string, id: number): Observable<T> {
+  deleteById<T>(url: string, id: number): Observable<T> {
     return this.http.delete<T>(`${url}/${id}`, this.httpOptions).pipe(
       tap(_ => console.log(`deleted`)),
       catchError(this.handleError<T>('delete'))

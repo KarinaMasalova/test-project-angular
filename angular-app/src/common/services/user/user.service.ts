@@ -9,25 +9,17 @@ import {url} from "../../constants/api";
 })
 
 export class UserService {
-  users!: User[];
-
   constructor(private http: HttpClientService) { }
 
   getUsers() {
-    return this.http.get<User>(url)
-      .subscribe(users => this.users = users);
+    return this.http.get<User>(url);
   }
 
-  addUser(user: object) {
-    return this.http.post<User>(url, user)
-      .subscribe(newUser => user = newUser);
+  addUser(user: any) {
+    return this.http.post<User>(url, user);
   }
 
   deleteUser(id: number) {
-    return this.http.delete<User>(url, id)
-      .subscribe(() => {
-        this.getUsers();
-        return true;
-      });
+    return this.http.deleteById<User>(url, id);
   }
 }
