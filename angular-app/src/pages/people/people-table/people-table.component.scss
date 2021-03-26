@@ -1,10 +1,47 @@
-.people-table {
-  width: 100%;
-  overflow-x: scroll;
+@import '../../../common-scss/colors.scss';
 
-  .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+.form-field {
+  margin-bottom: 50px;
+}
+
+.people {
+  overflow: auto;
+
+  &-table {
+    width: 100%;
+
+    .mat-header-row > th {
+      height: 80px;
+      color: $colorPrimary;
+      border-bottom: $border;
+      border-top: $border;
+
+      &:nth-child(2) {
+        text-align: left;
+      }
+    }
+
+    td.mat-cell {
+      height: 100px;
+      max-height: 150px;
+      min-width: 100px;
+      padding-right: 2%;
+
+      &:first-of-type {
+        min-width: 65px;
+        padding: 0 0 0 24px;
+      }
+
+      &.wide-column {
+        min-width: 120px;
+        max-width: 150px;
+      }
+
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+    }
   }
 }

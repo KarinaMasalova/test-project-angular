@@ -2,10 +2,12 @@ import {AfterViewInit, OnInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
 
 import {User} from "../../../common/models/user/user";
 import { columns } from "../../../common/constants/data";
 import { UserService } from "../../../common/services/user/user.service";
+import { convertTimeStamp } from "../../../common/utils/date";
 
 @Component({
   selector: 'app-people-table',
@@ -15,12 +17,14 @@ import { UserService } from "../../../common/services/user/user.service";
 export class PeopleTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = columns;
   dataSource!: MatTableDataSource<User>;
+  selection = new SelectionModel<User>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
   constructor(private userService: UserService) {
     this.dataSource = new MatTableDataSource();
+    console.log(this.convertTime(1609684652));
   }
 
   ngAfterViewInit() {
@@ -41,12 +45,31 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     }
   }
 
-  showUsers() {
+  private showUsers() {
     return this.userService.getUsers()
       .subscribe(users => this.dataSource.data = users);
   }
 
-  log(desc: string, val: any) {
-    console.log(desc, val);
+  convertTime(value: number) {
+    return convertTimeStamp(value);
+  }
+
+  isAllUsersSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllUsersSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  checkboxLabel(user?: User): string {
+    if (!user) {
+      return `${this.isAllUsersSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(user) ? 'deselect' : 'select'} row ${user.id + 1}`;
   }
 }
