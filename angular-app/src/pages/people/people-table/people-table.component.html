@@ -5,6 +5,17 @@
   </label>
 </mat-form-field>
 
+<div *ngIf="!selection.selected.length" class="selected-bar inactive">
+  <button mat-stroked-button>ADD PERSON</button>
+</div>
+
+<div *ngIf="selection.selected.length" class="selected-bar active">
+  <p>{{selection.selected.length + ' selected'}}</p>
+  <button mat-mini-fab color="primary">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
+
 <div class="people">
   <table mat-table [dataSource]="dataSource" matSort class="people-table">
     <ng-container matColumnDef="select">

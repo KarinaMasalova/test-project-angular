@@ -10,6 +10,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from "@angular/material/sort";
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +22,7 @@ import { ThemeToggleComponent } from '../common/components/header/theme-toggle/t
 import { PeopleComponent } from '../pages/people/people.component';
 import { ChartsComponent } from '../pages/charts/charts.component';
 import { PeopleTableComponent } from '../pages/people/people-table/people-table.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { PeopleTableComponent } from '../pages/people/people-table/people-table.
     MatInputModule,
     MatSortModule,
     HttpClientModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
