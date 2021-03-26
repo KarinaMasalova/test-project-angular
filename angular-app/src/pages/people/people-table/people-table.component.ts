@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, OnInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -12,7 +12,7 @@ import { UserService } from "../../../common/services/user/user.service";
   templateUrl: './people-table.component.html',
   styleUrls: ['./people-table.component.scss']
 })
-export class PeopleTableComponent implements AfterViewInit {
+export class PeopleTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = columns;
   dataSource!: MatTableDataSource<User>;
 
@@ -20,13 +20,16 @@ export class PeopleTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort | null = null;
 
   constructor(private userService: UserService) {
-    this.showUsers();
     this.dataSource = new MatTableDataSource();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnInit() {
+    this.showUsers();
   }
 
   applyFilter(event: Event) {

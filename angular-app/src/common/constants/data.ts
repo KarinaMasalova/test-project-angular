@@ -1,2 +1,2 @@
-export const columns = ['ID', 'Avatar', 'Firstname', 'Lastname', 'Role', 'Last logged in',
-  'Profile views', 'Age', 'Country', 'City', 'Address', 'Phone', 'Company', 'Connections'];
+export const columns = ['avatar', 'firstname', 'lastname', 'role', 'lastLoggedIn',
+  'profileViews', 'age', 'country', 'city', 'address', 'phone', 'company', 'connections'];
