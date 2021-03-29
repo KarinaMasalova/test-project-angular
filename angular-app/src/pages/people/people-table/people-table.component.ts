@@ -24,7 +24,6 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   constructor(private userService: UserService) {
     this.dataSource = new MatTableDataSource();
-    console.log(this.convertTime(1609684652));
   }
 
   ngAfterViewInit() {

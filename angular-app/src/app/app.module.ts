@@ -11,7 +11,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from "@angular/material/sort";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 import { HttpClientModule } from "@angular/common/http";
+import { MDBBootstrapModule  } from "angular-bootstrap-md";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +24,8 @@ import { ThemeToggleComponent } from '../common/components/header/theme-toggle/t
 import { PeopleComponent } from '../pages/people/people.component';
 import { ChartsComponent } from '../pages/charts/charts.component';
 import { PeopleTableComponent } from '../pages/people/people-table/people-table.component';
-import {MatButtonModule} from "@angular/material/button";
+import { PieChartComponent } from "../pages/charts/pie-chart/pie-chart.component";
+import { BarChartComponent } from '../pages/charts/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import {MatButtonModule} from "@angular/material/button";
     PeopleComponent,
     ChartsComponent,
     PeopleTableComponent,
+    PieChartComponent,
+    BarChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,8 @@ import {MatButtonModule} from "@angular/material/button";
     HttpClientModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MDBBootstrapModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
