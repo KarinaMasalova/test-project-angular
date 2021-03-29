@@ -12,7 +12,10 @@
 <div *ngIf="selection.selected.length" class="selected-bar active">
   <p>{{selection.selected.length + ' selected'}}</p>
   <button mat-mini-fab color="primary">
-    <mat-icon>delete</mat-icon>
+    <mat-icon
+      class="delete-icon"
+      (click)="$event ? deleteUsers() : null"
+    >delete</mat-icon>
   </button>
 </div>
 

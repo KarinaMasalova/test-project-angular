@@ -71,4 +71,13 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     }
     return `${this.selection.isSelected(user) ? 'deselect' : 'select'} row ${user.id + 1}`;
   }
+
+  deleteUsers() {
+    const selecteds = this.selection.selected;
+    selecteds.forEach((person) => this.userService.deleteUser(+person.id).subscribe());
+
+    const selectedIds = selecteds.map((person) => person.id);
+    this.dataSource.data = this.dataSource.data
+      .filter((person) => !selectedIds.includes(person.id));
+  }
 }

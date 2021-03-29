@@ -29,6 +29,10 @@
   .mat-stroked-button {
     border-color: $colorPrimary;
   }
+
+  .mat-mini-fab:focus {
+    outline: none;
+  }
 }
 
 .people {
