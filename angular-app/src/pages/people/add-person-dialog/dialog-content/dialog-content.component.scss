@@ -1,0 +1,58 @@
+@import '../../../../common-scss/colors';
+
+.dialog {
+  &-title {
+    font-size: 3.0rem;
+    color: $colorPrimary;
+    margin-bottom: 30px;
+  }
+
+  &-description {
+    font-size: 1.6rem;
+    max-width: 550px;
+    margin-bottom: 30px;
+  }
+}
+
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+
+  .field-description {
+    color: $colorPrimary;
+  }
+
+  .full-width {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+
+  .mat-dialog-actions {
+    justify-content: flex-end;
+
+    & > button {
+      border: 1px solid $colorPrimary;
+
+      &:first-child {
+        color: $colorPrimary;
+      }
+
+      &:nth-child(2) {
+        background-color: $colorPrimary;
+        color: #fff;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+

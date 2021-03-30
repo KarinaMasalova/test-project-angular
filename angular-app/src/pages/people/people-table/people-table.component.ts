@@ -8,6 +8,7 @@ import {User} from "../../../common/models/user/user";
 import { columns } from "../../../common/constants/data";
 import { UserService } from "../../../common/services/user/user.service";
 import { convertTimeStamp } from "../../../common/utils/date";
+import { AddPersonDialogComponent } from "../add-person-dialog/add-person-dialog.component";
 
 @Component({
   selector: 'app-people-table',
@@ -22,7 +23,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private dialog: AddPersonDialogComponent) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -79,5 +80,9 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     const selectedIds = selecteds.map((person) => person.id);
     this.dataSource.data = this.dataSource.data
       .filter((person) => !selectedIds.includes(person.id));
+  }
+
+  openDialog() {
+    this.dialog.openDialog();
   }
 }

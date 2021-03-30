@@ -6,7 +6,9 @@
 </mat-form-field>
 
 <div *ngIf="!selection.selected.length" class="selected-bar inactive">
-  <button mat-stroked-button>ADD PERSON</button>
+  <button mat-stroked-button
+      (click)="openDialog()"
+  >ADD PERSON</button>
 </div>
 
 <div *ngIf="selection.selected.length" class="selected-bar active">
