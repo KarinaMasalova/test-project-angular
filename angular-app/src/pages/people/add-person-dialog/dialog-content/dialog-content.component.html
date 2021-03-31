@@ -1,25 +1,25 @@
 <h2 mat-dialog-title class="dialog-title">Add person</h2>
 <p class="dialog-description">To add a person, please enter all the necessary information.</p>
 
-<form class="form" method="post" action="/">
+<form [formGroup]="addPersonForm" class="form" method="post" action="/" (submit)="addPeople()">
   <mat-dialog-content class="mat-typography">
 
     <p class="field-description">Your firstname:</p>
     <mat-form-field class="full-width">
       <mat-label>Firstname...</mat-label>
-      <input matInput type="text">
+      <input matInput formControlName="firstname" name="firstname" type="text" required>
     </mat-form-field>
 
     <p class="field-description">Your lastname:</p>
     <mat-form-field class="full-width">
       <mat-label>Lastname...</mat-label>
-      <input matInput type="text">
+      <input matInput formControlName="lastname" name="lastname" type="text" required>
     </mat-form-field>
 
     <p class="field-description">Your role:</p>
     <mat-form-field class="full-width">
       <mat-label>Role...</mat-label>
-      <mat-select [(ngModel)]="selectedRole" name="role">
+      <mat-select formControlName="role" required>
         <mat-option *ngFor="let role of roles" [value]="role.value">
           {{role.value}}
         </mat-option>
@@ -29,56 +29,50 @@
     <p class="field-description">Your age:</p>
     <mat-form-field class="full-width">
       <mat-label>Age...</mat-label>
-      <input matInput type="number">
+      <input matInput formControlName="age" name="age" type="number" required>
     </mat-form-field>
 
     <p class="field-description">Your country:</p>
     <mat-form-field class="full-width">
       <mat-label>Country...</mat-label>
-      <input matInput type="text">
+      <input matInput formControlName="country" name="country" type="text" required>
     </mat-form-field>
 
     <p class="field-description">Your city:</p>
     <mat-form-field class="full-width">
       <mat-label>City...</mat-label>
-      <input matInput type="text">
+      <input matInput formControlName="city" name="city" type="text" required>
     </mat-form-field>
 
     <p class="field-description">Your address:</p>
     <mat-form-field class="full-width">
       <mat-label>Address...</mat-label>
-      <input matInput type="text">
+      <input matInput formControlName="address" name="address" type="text" required>
     </mat-form-field>
 
     <p class="field-description">Your phone number:</p>
     <mat-form-field class="full-width">
       <mat-label>Phone number...</mat-label>
-      <input matInput type="text">
+      <input matInput formControlName="phone" name="phone" type="text" required>
     </mat-form-field>
 
     <p class="field-description">Your company:</p>
     <mat-form-field class="full-width">
       <mat-label>Company...</mat-label>
-      <input matInput type="text">
+      <input matInput formControlName="company" name="company" type="text" required>
     </mat-form-field>
 
     <p class="field-description">Your photo:</p>
     <mat-form-field class="full-width">
       <mat-label>Link to photo...</mat-label>
-      <input matInput type="url">
+      <input matInput formControlName="avatar" name="avatar" type="url" required>
     </mat-form-field>
 
     <p class="field-description">Your connections:</p>
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Connections...</mat-label>
-      <mat-select [formControl]="connections" multiple>
-        <mat-select-trigger>
-          {{connections.value ? connections.value[0] : ''}}
-          <span *ngIf="connections.value?.length > 1" class="additional-selection">
-            (+{{connections.value.length - 1}}
-            {{connections.value?.length === 2 ? 'other' : 'others'}})
-          </span>
-        </mat-select-trigger>
+      <mat-select formControlName="connections" multiple>
+
         <mat-option *ngFor="let connection of connectionsList"
                     [value]="connection.firstName + ' ' + connection.lastName"
         >

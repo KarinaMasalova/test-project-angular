@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 import {UserRole} from "../../../../common/models/user/role/role";
 import {UserService} from "../../../../common/services/user/user.service";
@@ -10,8 +10,22 @@ import {UserService} from "../../../../common/services/user/user.service";
   styleUrls: ['./dialog-content.component.scss']
 })
 export class DialogContentComponent implements OnInit {
-  selectedRole: string | undefined;
-  connections = new FormControl();
+  addPersonForm = new FormGroup({
+    avatar: new FormControl(''),
+    firstname: new FormControl(''),
+    lastname: new FormControl(''),
+    lastLoggedIn: new FormControl(new Date().toDateString()),
+    profileViews: new FormControl(''),
+    age: new FormControl(''),
+    role: new FormControl(''),
+    country: new FormControl(''),
+    city: new FormControl(''),
+    address: new FormControl(''),
+    phone: new FormControl(''),
+    company: new FormControl(''),
+    connections: new FormControl([]),
+  });
+
   connectionsList: Array<any> = [];
 
   constructor(private userService: UserService) { }
@@ -21,9 +35,14 @@ export class DialogContentComponent implements OnInit {
     {value: 'client'},
   ];
 
+
   getAllConnections() {
     return this.userService.getUsers()
       .subscribe((users) => this.connectionsList = users);
+  }
+
+  addPeople() {
+    return this.userService.addUser({}).subscribe();
   }
 
   ngOnInit() {

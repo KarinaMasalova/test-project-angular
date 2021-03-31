@@ -23,10 +23,7 @@ export class HttpClientService {
 
   get<T>(url: string): Observable<T[]> {
     return this.http.get<T[]>(url)
-      .pipe(
-        tap(_ => console.log('fetched')),
-        catchError(this.handleError<T[]>('getAll', []))
-      );
+      .pipe(catchError(this.handleError<T[]>('getAll', [])));
   }
 
   post<T>(url: string, entity: object): Observable<T> {
