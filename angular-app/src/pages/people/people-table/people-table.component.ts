@@ -7,7 +7,6 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {User} from "../../../common/models/user/user";
 import { columns } from "../../../common/constants/data";
 import { UserService } from "../../../common/services/user/user.service";
-import { convertTimeStamp } from "../../../common/utils/date";
 import { AddPersonDialogComponent } from "../add-person-dialog/add-person-dialog.component";
 import {UserRole} from "../../../common/models/user/role/role";
 import {UserAge} from "../../../common/models/user/age/age";
@@ -106,10 +105,6 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
       });
   }
 
-  convertTime(value: number) {
-    return convertTimeStamp(value);
-  }
-
   isAllUsersSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -142,5 +137,9 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   openDialog() {
     this.dialog.openDialog();
+  }
+
+  log(val: any) {
+    console.log(val);
   }
 }

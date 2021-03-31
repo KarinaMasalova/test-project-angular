@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {UserRole} from "../../../../common/models/user/role/role";
 import {UserService} from "../../../../common/services/user/user.service";
@@ -11,18 +11,18 @@ import {UserService} from "../../../../common/services/user/user.service";
 })
 export class DialogContentComponent implements OnInit {
   addPersonForm = new FormGroup({
-    avatar: new FormControl(''),
-    firstname: new FormControl(''),
-    lastname: new FormControl(''),
-    lastLoggedIn: new FormControl(new Date().toDateString()),
-    profileViews: new FormControl(''),
-    age: new FormControl(''),
-    role: new FormControl(''),
-    country: new FormControl(''),
-    city: new FormControl(''),
-    address: new FormControl(''),
-    phone: new FormControl(''),
-    company: new FormControl(''),
+    avatar: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    lastLoggedIn: new FormControl(new Date('July 29, 2020 03:24:00').toDateString(), Validators.required),
+    profileViews: new FormControl(67, Validators.required),
+    age: new FormControl('', Validators.required),
+    role: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    phone: new FormControl('', Validators.required),
+    company: new FormControl('', Validators.required),
     connections: new FormControl([]),
   });
 
@@ -41,7 +41,10 @@ export class DialogContentComponent implements OnInit {
   }
 
   addPeople() {
-    return this.userService.addUser({}).subscribe();
+    if (!this.addPersonForm.valid) {
+      return;
+    }
+    return this.userService.addUser(this.addPersonForm.value).subscribe();
   }
 
   ngOnInit() {
