@@ -1,7 +1,36 @@
 @import '../../../common-scss/colors.scss';
 
-.form-field {
-  margin-bottom: 50px;
+.search-filters {
+  width: 100%;
+  border: 1px solid $colorPrimary;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+
+  &_title {
+    color: $colorPrimary;
+  }
+
+  &_form {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .reset-filters {
+    text-align: right;
+
+    &_button {
+      border-color: $colorPrimary;
+      margin-top: 20px;
+      max-width: 140px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }
 
 .selected-bar {

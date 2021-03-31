@@ -1,9 +1,52 @@
-<mat-form-field class="form-field">
-  <mat-label>Filter</mat-label>
-  <label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-  </label>
-</mat-form-field>
+<div class="search-filters">
+  <h1 class="search-filters_title">Our people</h1>
+  <form autocomplete="off" novalidate class="search-filters_form">
+    <mat-form-field>
+      <mat-label>Name...</mat-label>
+      <label>
+        <input matInput [(ngModel)]="filters.name" name="name"
+               (input)="handleFilterChange($event, 'name')"
+               placeholder="Ex. Mia"
+               #name autocomplete="off">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Country/city...</mat-label>
+      <label>
+        <input matInput [(ngModel)]="filters.location" name="location"
+               (input)="handleFilterChange($event, 'location')"
+               placeholder="Ex. Dublin"
+               #location autocomplete="off">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Age...</mat-label>
+      <mat-select [(ngModel)]="filters.age" name="age" #age
+                  (selectionChange)="handleFilterChange($event, 'age')">
+        <mat-option *ngFor="let age of ages" [value]="age.value">
+          {{age.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Role...</mat-label>
+      <mat-select [(ngModel)]="filters.role" name="role" #role
+                  (selectionChange)="handleFilterChange($event, 'role')">
+        <mat-option *ngFor="let role of roles" [value]="role.value">
+          {{role.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <div class="reset-filters">
+    <button mat-stroked-button class="reset-filters_button" (click)="resetFilters()">
+      RESET FILTERS
+    </button>
+  </div>
+</div>
 
 <div *ngIf="!selection.selected.length" class="selected-bar inactive">
   <button mat-stroked-button
@@ -112,7 +155,10 @@
     <tr mat-row *matRowDef="let user; columns: displayedColumns"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="14">No data matching the filter "{{input.value}}"</td>
+      <td class="mat-cell" colspan="14">
+        No data matching such filters. Name: "{{name.value}}",  location: "{{location.value}}",
+        age: "less than {{age.value}}" and role: "{{role.value}}".
+      </td>
     </tr>
   </table>
 </div>

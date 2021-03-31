@@ -72,7 +72,6 @@
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Connections...</mat-label>
       <mat-select formControlName="connections" multiple>
-
         <mat-option *ngFor="let connection of connectionsList"
                     [value]="connection.firstName + ' ' + connection.lastName"
         >

@@ -9,6 +9,9 @@ import { columns } from "../../../common/constants/data";
 import { UserService } from "../../../common/services/user/user.service";
 import { convertTimeStamp } from "../../../common/utils/date";
 import { AddPersonDialogComponent } from "../add-person-dialog/add-person-dialog.component";
+import {UserRole} from "../../../common/models/user/role/role";
+import {UserAge} from "../../../common/models/user/age/age";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-people-table',
@@ -17,8 +20,29 @@ import { AddPersonDialogComponent } from "../add-person-dialog/add-person-dialog
 })
 export class PeopleTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = columns;
-  dataSource!: MatTableDataSource<User>;
+  dataSource!: MatTableDataSource<User>; // filtered users
   selection = new SelectionModel<User>(true, []);
+  allUsersData!: User[];
+
+  filters: any = {
+    name: '',
+    location: '',
+    age: '',
+    role: ''
+  }
+
+  ages: UserAge[] = [
+    { label: 'less than 18', value: 18 },
+    { label: 'less than 25', value: 25 },
+    { label: 'less than 35', value: 35 },
+    { label: 'less than 50', value: 50 },
+    { label: 'less than 100', value: 100 },
+  ];
+
+  roles: UserRole[] = [
+    { value: 'lawyer' },
+    { value: 'client' },
+  ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
@@ -36,18 +60,50 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     this.showUsers();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  handleFilterChange = (event: Event | MatSelectChange, filter: string) => {
+    const obj = { ...this.filters };
+
+    if (!(event instanceof MatSelectChange)) {
+      obj[filter] = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    } else {
+      obj[filter] = event.value as HTMLSelectElement;
+    }
+
+    this.filters = obj;
+    this.dataSource.data = this.filterUsers();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
+  resetFilters() {
+    this.filters.name = '';
+    this.filters.location = '';
+    this.filters.age = '';
+    this.filters.role = '';
+    this.dataSource.data = this.allUsersData;
+  }
+
+  filterUsers(): User[] {
+    return this.allUsersData.filter((user) => {
+      const firstname = user.firstName.toLowerCase().includes(this.filters.name.toLowerCase());
+      const lastname = user.lastName.toLowerCase().includes(this.filters.name.toLowerCase());
+      const city = user.city.toLowerCase().includes(this.filters.location.toLowerCase());
+      const country = user.country.toLowerCase().includes(this.filters.location.toLowerCase());
+      const age = this.filters.age === '' || user.age < this.filters.age;
+      const role = this.filters.role === '' || user.role === this.filters.role;
+
+      return (firstname || lastname) && (city || country) && age && role;
+    });
+  }
+
   private showUsers() {
     return this.userService.getUsers()
-      .subscribe(users => this.dataSource.data = users);
+      .subscribe(users => {
+        this.dataSource.data = users;
+        this.allUsersData = users;
+      });
   }
 
   convertTime(value: number) {
@@ -80,6 +136,8 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     const selectedIds = selecteds.map((person) => person.id);
     this.dataSource.data = this.dataSource.data
       .filter((person) => !selectedIds.includes(person.id));
+
+    this.selection = new SelectionModel<User>(true, []);
   }
 
   openDialog() {

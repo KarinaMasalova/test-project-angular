@@ -35,7 +35,6 @@ export class DialogContentComponent implements OnInit {
     {value: 'client'},
   ];
 
-
   getAllConnections() {
     return this.userService.getUsers()
       .subscribe((users) => this.connectionsList = users);

@@ -14,6 +14,9 @@ import { MatIconModule } from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { HttpClientModule } from "@angular/common/http";
 import { MDBBootstrapModule  } from "angular-bootstrap-md";
+import {MatSelectModule} from "@angular/material/select";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDialogModule} from "@angular/material/dialog";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,10 +30,7 @@ import { PeopleTableComponent } from '../pages/people/people-table/people-table.
 import { PieChartComponent } from "../pages/charts/pie-chart/pie-chart.component";
 import { BarChartComponent } from '../pages/charts/bar-chart/bar-chart.component';
 import { AddPersonDialogComponent } from '../pages/people/add-person-dialog/add-person-dialog.component';
-import {MatDialogModule} from "@angular/material/dialog";
 import { DialogContentComponent } from '../pages/people/add-person-dialog/dialog-content/dialog-content.component';
-import {MatSelectModule} from "@angular/material/select";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
