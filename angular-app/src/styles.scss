@@ -13,6 +13,23 @@ body {
   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.error-snackbar {
+  background-color: darkred !important;
+  color: white !important;
+
+  span.mat-button-wrapper {
+    color: white !important;
+  }
+
+  button.mat-button {
+    background: brown;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 * {
   @include font();
   margin: 0;

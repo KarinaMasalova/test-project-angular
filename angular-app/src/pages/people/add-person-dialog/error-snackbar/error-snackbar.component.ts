@@ -16,7 +16,7 @@ export class ErrorSnackbarComponent {
       'all the fields are filled in.', 'OK', {
         duration: this.durationInSeconds * 1000,
         horizontalPosition: 'end',
-        panelClass: 'snackbar-container'
+        panelClass: ['error-snackbar']
     });
   }
 }

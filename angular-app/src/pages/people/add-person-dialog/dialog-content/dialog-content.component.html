@@ -1,5 +1,6 @@
 <h2 mat-dialog-title class="dialog-title">Add person</h2>
-<p class="dialog-description">To add a person, please enter all the necessary information.</p>
+<p class="dialog-description">To add a person, please enter all the necessary information.
+All the fields are required, except connections.</p>
 
 <form [formGroup]="addPersonForm" class="form" method="post" action="/"
       (submit)="addPeople()" autocomplete="off">
