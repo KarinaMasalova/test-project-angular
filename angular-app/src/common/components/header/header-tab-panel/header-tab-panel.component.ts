@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router, NavigationEnd, RouterEvent} from "@angular/router";
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-tab-panel',
@@ -6,10 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-tab-panel.component.scss']
 })
 export class HeaderTabPanelComponent implements OnInit {
+  private currentRoute!: string;
   public links = ['people', 'charts'];
-  public activeLink = this.links[0];
+  public activeLink = this.currentRoute === '/people'
+    ? this.links[0]
+    : this.links[1];
 
-  constructor() { }
+  constructor(private router: Router) {
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event) => {
+      if (event instanceof RouterEvent) {
+        this.currentRoute = event.url;
+      }
+      this.activeLink = this.currentRoute === '/people'
+        ? this.links[0]
+        : this.links[1];
+    });
+  }
 
   ngOnInit(): void {
   }
