@@ -10,11 +10,12 @@ import * as colors from "../../../common/constants/colors";
 })
 export class BarChartComponent implements OnInit {
   public chartType: string = 'horizontalBar';
-  private mapCollection: Map<string, object[]> = new Map();
+  public chartLabels: Array<any> = [''];
   public chartDatasets: Array<any> = [];
+  public chartReady: boolean = false;
+  private mapCollection: Map<string, object[]> = new Map();
   private valuesArray: any[] = [0];
   private countryPeople: any[] = [];
-  public chartLabels: Array<any> = [''];
 
   public chartColors: Array<any> = [{
     backgroundColor: colors.turquoiseHover,
@@ -31,7 +32,7 @@ export class BarChartComponent implements OnInit {
   public chartClicked(e: any): void { }
   public chartHovered(e: any): void { }
 
-  private setMapCollection(users: any[]) {
+  private setMapCollection(users: any[]): void {
     users.map(user => {
       this.countryPeople = this.mapCollection.get(user.country) || [];
       this.mapCollection.set(user.country, [...this.countryPeople, {
@@ -42,7 +43,7 @@ export class BarChartComponent implements OnInit {
     });
   }
 
-  private setChartData() {
+  private setChartData(): void {
     this.userService.getUsers().subscribe(users => {
       this.setMapCollection(users);
       for (const [key, value] of this.mapCollection) {
@@ -52,6 +53,7 @@ export class BarChartComponent implements OnInit {
       this.chartDatasets = [
         { data: this.valuesArray, label: 'People from Different Countries' }
       ];
+      this.chartReady = true;
     });
   }
 
