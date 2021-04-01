@@ -14,16 +14,16 @@ enum Themes {
 })
 
 export class ThemeToggleComponent implements OnInit {
-  lightMode = Themes.light;
-  darkMode = Themes.dark;
+  public lightMode = Themes.light;
+  public darkMode = Themes.dark;
 
   constructor(private colorSchemeService: ColorSchemeService) {}
 
-  changeTheme(): void {
+  public changeTheme(): void {
     this.colorSchemeService.toggleDarkMode();
   }
 
-  isDarkMode() {
+  public isDarkMode(): boolean {
     return this.colorSchemeService.isDarkMode();
   }
 

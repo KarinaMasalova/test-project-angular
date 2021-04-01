@@ -12,9 +12,9 @@ import * as colors from "../../../common/constants/colors";
 
 export class PieChartComponent implements OnInit {
   public chartType: string = 'pie';
+  public chartLabels: Array<any> = ['Clients', 'Lawyers'];
   private lawyersAmount: number = 0;
   private clientsAmount: number = 0;
-  public chartLabels: Array<any> = ['Clients', 'Lawyers'];
 
   constructor(private userService: UserService) { }
 
@@ -35,7 +35,7 @@ export class PieChartComponent implements OnInit {
   public chartClicked(e: any): void { }
   public chartHovered(e: any): void { }
 
-  private setPeopleAmount() {
+  private setPeopleAmount(): void {
     this.userService.getUsers().subscribe(users => {
       this.lawyersAmount = roundNumber(
         users.filter(user => user.role === 'lawyer').length * 100 / users.length, 2

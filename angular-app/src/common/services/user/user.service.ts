@@ -11,15 +11,15 @@ import {url} from "../../constants/api";
 export class UserService {
   constructor(private http: HttpClientService) { }
 
-  getUsers() {
+  public getUsers() {
     return this.http.get<User>(url);
   }
 
-  addUser(user: any) {
+  public addUser(user: any) {
     return this.http.post<User>(url, user);
   }
 
-  deleteUser(id: number) {
+  public deleteUser(id: number) {
     return this.http.deleteById<User>(url, id);
   }
 }

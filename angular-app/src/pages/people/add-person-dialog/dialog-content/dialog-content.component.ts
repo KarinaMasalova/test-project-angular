@@ -11,9 +11,9 @@ import {ErrorSnackbarComponent} from "../error-snackbar/error-snackbar.component
   styleUrls: ['./dialog-content.component.scss']
 })
 export class DialogContentComponent implements OnInit {
-  connectionsList: Array<any> = [];
+  public connectionsList: Array<any> = [];
 
-  addPersonForm = new FormGroup({
+  public addPersonForm = new FormGroup({
     avatar: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -29,19 +29,19 @@ export class DialogContentComponent implements OnInit {
     connections: new FormControl([]),
   });
 
-  roles: UserRole[] = [
+  public roles: UserRole[] = [
     {value: 'lawyer'},
     {value: 'client'},
   ];
 
   constructor(private userService: UserService, private snackbar: ErrorSnackbarComponent) { }
 
-  getAllConnections() {
+  private getAllConnections() {
     return this.userService.getUsers()
       .subscribe((users) => this.connectionsList = users);
   }
 
-  addPeople() {
+  public addPeople() {
     if (!this.addPersonForm.valid) {
       this.snackbar.open();
       return;
@@ -49,7 +49,7 @@ export class DialogContentComponent implements OnInit {
     return this.userService.addUser(this.addPersonForm.value).subscribe();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAllConnections();
   }
 }

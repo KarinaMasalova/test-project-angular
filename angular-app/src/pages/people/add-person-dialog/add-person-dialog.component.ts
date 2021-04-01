@@ -10,14 +10,11 @@ import { DialogContentComponent } from "./dialog-content/dialog-content.componen
 })
 export class AddPersonDialogComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) { }
 
-  openDialog() {
+  public openDialog(): void {
     const dialogRef = this.dialog.open(DialogContentComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe();
   }
 
   ngOnInit(): void {

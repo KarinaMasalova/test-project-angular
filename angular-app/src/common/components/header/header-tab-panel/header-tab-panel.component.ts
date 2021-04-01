@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-tab-panel.component.scss']
 })
 export class HeaderTabPanelComponent implements OnInit {
-  links = ['people', 'charts'];
-  activeLink = this.links[0];
+  public links = ['people', 'charts'];
+  public activeLink = this.links[0];
 
   constructor() { }
 

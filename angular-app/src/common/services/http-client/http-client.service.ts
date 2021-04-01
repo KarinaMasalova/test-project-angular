@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 })
 
 export class HttpClientService {
-  httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
   }
 
@@ -21,12 +21,12 @@ export class HttpClientService {
     };
   }
 
-  get<T>(url: string): Observable<T[]> {
+  public get<T>(url: string): Observable<T[]> {
     return this.http.get<T[]>(url)
       .pipe(catchError(this.handleError<T[]>('getAll', [])));
   }
 
-  post<T>(url: string, entity: object): Observable<T> {
+  public post<T>(url: string, entity: object): Observable<T> {
     return this.http.post<T>(url, entity, this.httpOptions)
       .pipe(
         tap((newEntity: T) => console.log(`added: ${newEntity}`)),
@@ -34,7 +34,7 @@ export class HttpClientService {
       );
   }
 
-  deleteById<T>(url: string, id: number): Observable<T> {
+  public deleteById<T>(url: string, id: number): Observable<T> {
     return this.http.delete<T>(`${url}/${id}`, this.httpOptions).pipe(
       tap(_ => console.log(`deleted`)),
       catchError(this.handleError<T>('delete'))

@@ -18,20 +18,20 @@ import {MatSelectChange} from "@angular/material/select";
   styleUrls: ['./people-table.component.scss']
 })
 export class PeopleTableComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = columns;
-  dataSource!: MatTableDataSource<User>; // filtered users
-  selection = new SelectionModel<User>(true, []);
-  allUsersData!: User[];
-  loader: boolean = true;
+  public displayedColumns: string[] = columns;
+  public dataSource!: MatTableDataSource<User>; // filtered users
+  public selection = new SelectionModel<User>(true, []);
+  public loader: boolean = true;
+  private allUsersData!: User[];
 
-  filters: any = {
+  public filters: any = {
     name: '',
     location: '',
     age: '',
     role: ''
   }
 
-  ages: UserAge[] = [
+  public ages: UserAge[] = [
     { label: 'less than 18', value: 18 },
     { label: 'less than 25', value: 25 },
     { label: 'less than 35', value: 35 },
@@ -39,7 +39,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     { label: 'less than 100', value: 100 },
   ];
 
-  roles: UserRole[] = [
+  public roles: UserRole[] = [
     { value: 'lawyer' },
     { value: 'client' },
   ];
@@ -51,16 +51,16 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     this.dataSource = new MatTableDataSource();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.showUsers();
   }
 
-  handleFilterChange = (event: Event | MatSelectChange, filter: string) => {
+  public handleFilterChange = (event: Event | MatSelectChange, filter: string) => {
     const obj = { ...this.filters };
 
     if (!(event instanceof MatSelectChange)) {
@@ -77,7 +77,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     }
   }
 
-  resetFilters() {
+  public resetFilters(): void {
     this.filters.name = '';
     this.filters.location = '';
     this.filters.age = '';
@@ -85,7 +85,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     this.dataSource.data = this.allUsersData;
   }
 
-  filterUsers(): User[] {
+  private filterUsers(): User[] {
     return this.allUsersData.filter((user) => {
       const firstname = user.firstName.toLowerCase().includes(this.filters.name.toLowerCase());
       const lastname = user.lastName.toLowerCase().includes(this.filters.name.toLowerCase());
@@ -107,26 +107,26 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
       });
   }
 
-  isAllUsersSelected(): boolean {
+  public isAllUsersSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  masterToggle() {
+  public masterToggle(): void {
     this.isAllUsersSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  checkboxLabel(user?: User): string {
+  public checkboxLabel(user?: User): string {
     if (!user) {
       return `${this.isAllUsersSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(user) ? 'deselect' : 'select'} row ${user.id + 1}`;
   }
 
-  deleteUsers() {
+  public deleteUsers(): void {
     const selecteds = this.selection.selected;
     selecteds.forEach((person) => this.userService.deleteUser(+person.id).subscribe());
 
@@ -137,7 +137,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     this.selection = new SelectionModel<User>(true, []);
   }
 
-  openDialog() {
+  public openDialog(): void {
     this.dialog.openDialog();
   }
 }
