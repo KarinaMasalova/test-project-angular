@@ -22,6 +22,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   dataSource!: MatTableDataSource<User>; // filtered users
   selection = new SelectionModel<User>(true, []);
   allUsersData!: User[];
+  loader: boolean = true;
 
   filters: any = {
     name: '',
@@ -102,6 +103,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
       .subscribe(users => {
         this.dataSource.data = users;
         this.allUsersData = users;
+        this.loader = false;
       });
   }
 
@@ -137,9 +139,5 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   openDialog() {
     this.dialog.openDialog();
-  }
-
-  log(val: any) {
-    console.log(val);
   }
 }

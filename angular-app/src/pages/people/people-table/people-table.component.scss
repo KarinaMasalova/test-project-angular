@@ -1,5 +1,9 @@
 @import '../../../common-scss/colors.scss';
 
+.loader {
+  margin-bottom: 40px;
+}
+
 .search-filters {
   width: 100%;
   border: 1px solid $colorPrimary;

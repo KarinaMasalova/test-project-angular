@@ -64,6 +64,10 @@
   </button>
 </div>
 
+<div class="loader" *ngIf="loader">
+  <app-loader></app-loader>
+</div>
+
 <div class="people">
   <table mat-table [dataSource]="dataSource" matSort class="people-table">
     <ng-container matColumnDef="select">

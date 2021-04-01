@@ -18,6 +18,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { BarChartComponent } from '../pages/charts/bar-chart/bar-chart.component
 import { AddPersonDialogComponent } from '../pages/people/add-person-dialog/add-person-dialog.component';
 import { DialogContentComponent } from '../pages/people/add-person-dialog/dialog-content/dialog-content.component';
 import { ErrorSnackbarComponent } from '../pages/people/add-person-dialog/error-snackbar/error-snackbar.component';
+import { LoaderComponent } from '../common/components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { ErrorSnackbarComponent } from '../pages/people/add-person-dialog/error-
     BarChartComponent,
     AddPersonDialogComponent,
     DialogContentComponent,
-    ErrorSnackbarComponent
+    ErrorSnackbarComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -71,12 +74,14 @@ import { ErrorSnackbarComponent } from '../pages/people/add-person-dialog/error-
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AddPersonDialogComponent,
     DialogContentComponent,
     ErrorSnackbarComponent,
-    MatSnackBar
+    MatSnackBar,
+    LoaderComponent
   ],
   bootstrap: [AppComponent]
 })
