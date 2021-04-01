@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {UserRole} from "../../../../common/models/user/role/role";
 import {UserService} from "../../../../common/services/user/user.service";
+import {ErrorSnackbarComponent} from "../error-snackbar/error-snackbar.component";
 
 @Component({
   selector: 'app-dialog-content',
@@ -10,12 +11,14 @@ import {UserService} from "../../../../common/services/user/user.service";
   styleUrls: ['./dialog-content.component.scss']
 })
 export class DialogContentComponent implements OnInit {
+  connectionsList: Array<any> = [];
+
   addPersonForm = new FormGroup({
     avatar: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    lastLoggedIn: new FormControl(new Date('July 29, 2020 03:24:00').toDateString(), Validators.required),
-    profileViews: new FormControl(67, Validators.required),
+    lastLoggedIn: new FormControl(new Date().toDateString()),
+    profileViews: new FormControl(11),
     age: new FormControl('', Validators.required),
     role: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
@@ -26,14 +29,12 @@ export class DialogContentComponent implements OnInit {
     connections: new FormControl([]),
   });
 
-  connectionsList: Array<any> = [];
-
-  constructor(private userService: UserService) { }
-
   roles: UserRole[] = [
     {value: 'lawyer'},
     {value: 'client'},
   ];
+
+  constructor(private userService: UserService, private snackbar: ErrorSnackbarComponent) { }
 
   getAllConnections() {
     return this.userService.getUsers()
@@ -42,6 +43,7 @@ export class DialogContentComponent implements OnInit {
 
   addPeople() {
     if (!this.addPersonForm.valid) {
+      this.snackbar.open();
       return;
     }
     return this.userService.addUser(this.addPersonForm.value).subscribe();

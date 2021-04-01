@@ -17,6 +17,7 @@ import { MDBBootstrapModule  } from "angular-bootstrap-md";
 import {MatSelectModule} from "@angular/material/select";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { PieChartComponent } from "../pages/charts/pie-chart/pie-chart.component
 import { BarChartComponent } from '../pages/charts/bar-chart/bar-chart.component';
 import { AddPersonDialogComponent } from '../pages/people/add-person-dialog/add-person-dialog.component';
 import { DialogContentComponent } from '../pages/people/add-person-dialog/dialog-content/dialog-content.component';
+import { ErrorSnackbarComponent } from '../pages/people/add-person-dialog/error-snackbar/error-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { DialogContentComponent } from '../pages/people/add-person-dialog/dialog
     PieChartComponent,
     BarChartComponent,
     AddPersonDialogComponent,
-    DialogContentComponent
+    DialogContentComponent,
+    ErrorSnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,9 @@ import { DialogContentComponent } from '../pages/people/add-person-dialog/dialog
   ],
   providers: [
     AddPersonDialogComponent,
-    DialogContentComponent
+    DialogContentComponent,
+    ErrorSnackbarComponent,
+    MatSnackBar
   ],
   bootstrap: [AppComponent]
 })
