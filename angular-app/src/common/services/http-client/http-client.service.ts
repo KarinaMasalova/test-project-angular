@@ -9,35 +9,36 @@ import { Observable, of } from 'rxjs';
 
 export class HttpClientService {
   private httpOptions = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
   };
 
   constructor(private http: HttpClient) { }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);  // let the app keep running by returning an empty result
-    };
-  }
-
   public get<T>(url: string): Observable<T[]> {
     return this.http.get<T[]>(url)
-      .pipe(catchError(this.handleError<T[]>('getAll', [])));
+      .pipe(catchError(this.handleError<T[]>([])));
   }
 
   public post<T>(url: string, entity: object): Observable<T> {
     return this.http.post<T>(url, entity, this.httpOptions)
       .pipe(
         tap((newEntity: T) => console.log(`added: ${newEntity}`)),
-        catchError(this.handleError<T>('add'))
+        catchError(this.handleError<T>())
       );
   }
 
   public deleteById<T>(url: string, id: number): Observable<T> {
     return this.http.delete<T>(`${url}/${id}`, this.httpOptions).pipe(
       tap(_ => console.log(`deleted`)),
-      catchError(this.handleError<T>('delete'))
+      catchError(this.handleError<T>())
     );
+  }
+
+  private handleError<T>( result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);  // let the app keep running by returning an empty result
+    };
   }
 }

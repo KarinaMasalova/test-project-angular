@@ -8,29 +8,29 @@ import * as colors from '../../../common/constants/colors';
   templateUrl: './users-distribution-by-country.html',
   styleUrls: ['./users-distribution-by-country.scss'],
 })
-export class UsersDistributionByCountry implements OnInit {
+export class UsersDistributionByCountryComponent implements OnInit {
   public chartType = 'horizontalBar';
   public chartLabels: Array<any> = [''];
   public chartDatasets: Array<any> = [];
   public chartReady = false;
-  private mapCollection: Map<string, object[]> = new Map();
-  private valuesArray: any[] = [0];
-  private countryPeople: any[] = [];
-
   public chartColors: Array<any> = [{
     backgroundColor: colors.turquoiseHover,
     borderColor: colors.turquoise,
     borderWidth: 2,
   }];
-
   public chartOptions: any = {
     responsive: true
   };
 
+  private mapCollection: Map<string, object[]> = new Map();
+  private valuesArray: any[] = [0];
+  private countryPeople: any[] = [];
+
   constructor(private userService: UserService) { }
 
-  public chartClicked(e: any): void { }
-  public chartHovered(e: any): void { }
+  ngOnInit(): void {
+    this.setChartData();
+  }
 
   private setMapCollection(users: any[]): void {
     users.map(user => {
@@ -55,9 +55,5 @@ export class UsersDistributionByCountry implements OnInit {
       ];
       this.chartReady = true;
     });
-  }
-
-  ngOnInit(): void {
-    this.setChartData();
   }
 }

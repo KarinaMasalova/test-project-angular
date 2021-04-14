@@ -30,7 +30,7 @@ import { PeopleComponent } from '../pages/people/people.component';
 import { ChartsComponent } from '../pages/charts/charts.component';
 import { PeopleTableComponent } from '../pages/people/people-table/people-table.component';
 import { UserRatioByRoleComponent } from '../pages/charts/user-ratio-by-role/user-ratio-by-role.component';
-import { UsersDistributionByCountry } from '../pages/charts/users-distribution-by-country/users-distribution-by-country';
+import { UsersDistributionByCountryComponent } from '../pages/charts/users-distribution-by-country/users-distribution-by-country';
 import { AddPersonDialogComponent } from '../pages/people/add-person-dialog/add-person-dialog.component';
 import { DialogContentComponent } from '../pages/people/add-person-dialog/dialog-content/dialog-content.component';
 import { ErrorSnackbarComponent } from '../pages/people/add-person-dialog/error-snackbar/error-snackbar.component';
@@ -47,7 +47,7 @@ import { LoaderComponent } from '../common/components/loader/loader.component';
     ChartsComponent,
     PeopleTableComponent,
     UserRatioByRoleComponent,
-    UsersDistributionByCountry,
+    UsersDistributionByCountryComponent,
     AddPersonDialogComponent,
     DialogContentComponent,
     ErrorSnackbarComponent,

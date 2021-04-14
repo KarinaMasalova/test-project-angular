@@ -36,11 +36,6 @@ export class DialogContentComponent implements OnInit {
 
   constructor(private userService: UserService, private snackbar: ErrorSnackbarComponent) { }
 
-  private getAllConnections() {
-    return this.userService.getUsers()
-      .subscribe((users) => this.connectionsList = users);
-  }
-
   public addPeople() {
     if (!this.addPersonForm.valid) {
       this.snackbar.open();
@@ -51,5 +46,10 @@ export class DialogContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllConnections();
+  }
+
+  private getAllConnections() {
+    return this.userService.getUsers()
+      .subscribe((users) => this.connectionsList = users);
   }
 }

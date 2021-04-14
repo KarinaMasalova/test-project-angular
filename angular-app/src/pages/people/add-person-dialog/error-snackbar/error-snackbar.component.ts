@@ -13,7 +13,7 @@ export class ErrorSnackbarComponent {
 
   public open(): void {
     this.snackBar.open(
-      "ERROR: the user wasn't added. Please, make sure that " +
+      'ERROR: the user wasn\'t added. Please, make sure that ' +
         'all the fields are filled in.',
       'OK',
       {

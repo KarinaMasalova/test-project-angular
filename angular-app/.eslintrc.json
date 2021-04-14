@@ -36,8 +36,13 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
-      }
+        ],
+        "no-console": "error",
+        "no-debugger": "error"
+      },
+      "plugins": [
+        "prettier"
+      ]
     },
     {
       "files": [
@@ -46,7 +51,10 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      "rules": {},
+      "plugins": [
+        "prettier"
+      ]
     }
   ]
 }

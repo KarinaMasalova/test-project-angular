@@ -20,11 +20,8 @@ const columns = ['select', 'avatar', 'name', 'role', 'lastLoggedIn',
   styleUrls: ['./people-table.component.scss'],
 })
 export class PeopleTableComponent implements AfterViewInit, OnInit {
-  public displayedColumns: string[] = columns;
-  public dataSource: MatTableDataSource<User>; // filtered users
-  public selection = new SelectionModel<User>(true, []);
-  public loader = true;
-  private allUsersData!: User[];
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  @ViewChild(MatSort) sort: MatSort | null = null;
 
   public filters: any = {
     name: '',
@@ -46,8 +43,11 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     { value: 'client' },
   ];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  @ViewChild(MatSort) sort: MatSort | null = null;
+  public displayedColumns: string[] = columns;
+  public dataSource: MatTableDataSource<User>; // filtered users
+  public selection = new SelectionModel<User>(true, []);
+  public loader = true;
+  private allUsersData!: User[];
 
   constructor(private userService: UserService, private dialog: AddPersonDialogComponent) {
     this.dataSource = new MatTableDataSource();
@@ -87,28 +87,6 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     this.dataSource.data = this.allUsersData;
   }
 
-  private filterUsers(): User[] {
-    return this.allUsersData.filter((user) => {
-      const firstname = user.firstName.toLowerCase().includes(this.filters.name.toLowerCase());
-      const lastname = user.lastName.toLowerCase().includes(this.filters.name.toLowerCase());
-      const city = user.city.toLowerCase().includes(this.filters.location.toLowerCase());
-      const country = user.country.toLowerCase().includes(this.filters.location.toLowerCase());
-      const age = this.filters.age === '' || user.age < this.filters.age;
-      const role = this.filters.role === '' || user.role === this.filters.role;
-
-      return (firstname || lastname) && (city || country) && age && role;
-    });
-  }
-
-  private showUsers() {
-    return this.userService.getUsers()
-      .subscribe(users => {
-        this.dataSource.data = users;
-        this.allUsersData = users;
-        this.loader = false;
-      });
-  }
-
   public isAllUsersSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -116,7 +94,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   }
 
   public masterToggle(): void {
-    this.isAllUsersSelected() ?
+    return this.isAllUsersSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
@@ -141,5 +119,27 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   public openDialog(): void {
     this.dialog.openDialog();
+  }
+
+  private filterUsers(): User[] {
+    return this.allUsersData.filter((user) => {
+      const firstname = user.firstName.toLowerCase().includes(this.filters.name.toLowerCase());
+      const lastname = user.lastName.toLowerCase().includes(this.filters.name.toLowerCase());
+      const city = user.city.toLowerCase().includes(this.filters.location.toLowerCase());
+      const country = user.country.toLowerCase().includes(this.filters.location.toLowerCase());
+      const age = this.filters.age === '' || user.age < this.filters.age;
+      const role = this.filters.role === '' || user.role === this.filters.role;
+
+      return (firstname || lastname) && (city || country) && age && role;
+    });
+  }
+
+  private showUsers() {
+    return this.userService.getUsers()
+      .subscribe(users => {
+        this.dataSource.data = users;
+        this.allUsersData = users;
+        this.loader = false;
+      });
   }
 }

@@ -16,15 +16,6 @@ export class ColorSchemeService {
         : 'light-theme');
   }
 
-  private getColorTheme(): string {
-    return this.colorTheme;
-  }
-
-  private setColorTheme(theme: string): void {
-    this.colorTheme = theme;
-    localStorage.setItem('theme', theme);
-  }
-
   public isDarkMode(): boolean {
     return this.colorTheme === 'dark-theme';
   }
@@ -42,8 +33,17 @@ export class ColorSchemeService {
   }
 
   public toggleDarkMode(): void {
-    this.colorTheme === 'dark-theme'
+    return this.colorTheme === 'dark-theme'
       ? this.updateTheme('light-theme')
       : this.updateTheme('dark-theme');
+  }
+
+  private getColorTheme(): string {
+    return this.colorTheme;
+  }
+
+  private setColorTheme(theme: string): void {
+    this.colorTheme = theme;
+    localStorage.setItem('theme', theme);
   }
 }
