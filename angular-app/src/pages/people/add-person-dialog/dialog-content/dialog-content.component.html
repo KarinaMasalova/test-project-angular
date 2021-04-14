@@ -1,21 +1,33 @@
 <h2 mat-dialog-title class="dialog-title">Add person</h2>
-<p class="dialog-description">To add a person, please enter all the necessary information.
-All the fields are required, except connections.</p>
+<p class="dialog-description">
+  To add a person, please enter all the necessary information. All the fields
+  are required, except connections.
+</p>
 
-<form [formGroup]="addPersonForm" class="form" method="post" action="/"
-      (submit)="addPeople()" autocomplete="off">
+<form
+  [formGroup]="addPersonForm"
+  class="form"
+  method="post"
+  action="/"
+  (submit)="addPeople()"
+  autocomplete="off"
+>
   <mat-dialog-content class="mat-typography">
-
     <p class="field-description">Your firstname:</p>
     <mat-form-field class="full-width">
       <mat-label>Firstname...</mat-label>
-      <input matInput formControlName="firstName" name="firstname" type="text">
+      <input
+        matInput
+        formControlName="firstName"
+        name="firstname"
+        type="text"
+      />
     </mat-form-field>
 
     <p class="field-description">Your lastname:</p>
     <mat-form-field class="full-width">
       <mat-label>Lastname...</mat-label>
-      <input matInput formControlName="lastName" name="lastname" type="text">
+      <input matInput formControlName="lastName" name="lastname" type="text" />
     </mat-form-field>
 
     <p class="field-description">Your role:</p>
@@ -23,7 +35,7 @@ All the fields are required, except connections.</p>
       <mat-label>Role...</mat-label>
       <mat-select formControlName="role">
         <mat-option *ngFor="let role of roles" [value]="role.value">
-          {{role.value}}
+          {{ role.value }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -31,61 +43,63 @@ All the fields are required, except connections.</p>
     <p class="field-description">Your age:</p>
     <mat-form-field class="full-width">
       <mat-label>Age...</mat-label>
-      <input matInput formControlName="age" name="age" type="number">
+      <input matInput formControlName="age" name="age" type="number" />
     </mat-form-field>
 
     <p class="field-description">Your country:</p>
     <mat-form-field class="full-width">
       <mat-label>Country...</mat-label>
-      <input matInput formControlName="country" name="country" type="text">
+      <input matInput formControlName="country" name="country" type="text" />
     </mat-form-field>
 
     <p class="field-description">Your city:</p>
     <mat-form-field class="full-width">
       <mat-label>City...</mat-label>
-      <input matInput formControlName="city" name="city" type="text">
+      <input matInput formControlName="city" name="city" type="text" />
     </mat-form-field>
 
     <p class="field-description">Your address:</p>
     <mat-form-field class="full-width">
       <mat-label>Address...</mat-label>
-      <input matInput formControlName="address" name="address" type="text">
+      <input matInput formControlName="address" name="address" type="text" />
     </mat-form-field>
 
     <p class="field-description">Your phone number:</p>
     <mat-form-field class="full-width">
       <mat-label>Phone number...</mat-label>
-      <input matInput formControlName="phone" name="phone" type="text">
+      <input matInput formControlName="phone" name="phone" type="text" />
     </mat-form-field>
 
     <p class="field-description">Your company:</p>
     <mat-form-field class="full-width">
       <mat-label>Company...</mat-label>
-      <input matInput formControlName="company" name="company" type="text">
+      <input matInput formControlName="company" name="company" type="text" />
     </mat-form-field>
 
     <p class="field-description">Your photo:</p>
     <mat-form-field class="full-width">
       <mat-label>Link to photo...</mat-label>
-      <input matInput formControlName="avatar" name="avatar" type="url">
+      <input matInput formControlName="avatar" name="avatar" type="url" />
     </mat-form-field>
 
     <p class="field-description">Your connections:</p>
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Connections...</mat-label>
       <mat-select formControlName="connections" multiple>
-        <mat-option *ngFor="let connection of connectionsList"
-                    [value]="connection.firstName + ' ' + connection.lastName"
+        <mat-option
+          *ngFor="let connection of connectionsList"
+          [value]="connection.firstName + ' ' + connection.lastName"
         >
-          {{connection.firstName + ' ' + connection.lastName}}
+          {{ connection.firstName + ' ' + connection.lastName }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close>{{'Cancel' | uppercase}}</button>
-    <button mat-button [mat-dialog-close]="true" type="submit">{{'Add' | uppercase}}</button>
+    <button mat-button mat-dialog-close>{{ 'Cancel' | uppercase }}</button>
+    <button mat-button [mat-dialog-close]="true" type="submit">
+      {{ 'Add' | uppercase }}
+    </button>
   </mat-dialog-actions>
 </form>

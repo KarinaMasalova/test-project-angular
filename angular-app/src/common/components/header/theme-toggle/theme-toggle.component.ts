@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { ColorSchemeService } from "../../../services/color-scheme/color-scheme.service";
+import { ColorSchemeService } from '../../../services/color-scheme/color-scheme.service';
 
 enum Themes {
   light = 'Light',
@@ -13,7 +13,7 @@ enum Themes {
   styleUrls: ['./theme-toggle.component.scss']
 })
 
-export class ThemeToggleComponent implements OnInit {
+export class ThemeToggleComponent {
   public lightMode = Themes.light;
   public darkMode = Themes.dark;
 
@@ -25,8 +25,5 @@ export class ThemeToggleComponent implements OnInit {
 
   public isDarkMode(): boolean {
     return this.colorSchemeService.isDarkMode();
-  }
-
-  ngOnInit(): void {
   }
 }

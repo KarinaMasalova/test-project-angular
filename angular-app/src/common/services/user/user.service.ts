@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { User } from "../../models/user/user";
-import { HttpClientService } from "../http-client/http-client.service";
-import {url} from "../../constants/api";
+import { User } from '../../models/user/user';
+import { HttpClientService } from '../http-client/http-client.service';
+import {url} from '../../constants/api';
 
 @Injectable({
   providedIn: 'root'

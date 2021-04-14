@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {UserRole} from "../../../../common/models/user/role/role";
-import {UserService} from "../../../../common/services/user/user.service";
-import {ErrorSnackbarComponent} from "../error-snackbar/error-snackbar.component";
+import {UserRole} from '../../../../common/models/user/role/role';
+import {UserService} from '../../../../common/services/user/user.service';
+import {ErrorSnackbarComponent} from '../error-snackbar/error-snackbar.component';
 
 @Component({
   selector: 'app-dialog-content',
   templateUrl: './dialog-content.component.html',
-  styleUrls: ['./dialog-content.component.scss']
+  styleUrls: ['./dialog-content.component.scss'],
 })
 export class DialogContentComponent implements OnInit {
   public connectionsList: Array<any> = [];

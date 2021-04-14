@@ -1,6 +1,7 @@
-<p class="pie-title">{{'The ratio of clients and lawyers' | uppercase}}</p>
+<p class="pie-title">{{ 'The ratio of clients and lawyers' | uppercase }}</p>
 <div style="display: block">
-  <canvas mdbChart
+  <canvas
+    mdbChart
     [chartType]="chartType"
     [datasets]="chartDatasets"
     [labels]="chartLabels"
@@ -8,6 +9,7 @@
     [options]="chartOptions"
     [legend]="true"
     (chartHover)="chartHovered($event)"
-    (chartClick)="chartClicked($event)">
+    (chartClick)="chartClicked($event)"
+  >
   </canvas>
 </div>

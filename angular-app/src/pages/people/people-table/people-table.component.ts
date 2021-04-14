@@ -4,24 +4,26 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 
-import {User} from "../../../common/models/user/user";
-import { columns } from "../../../common/constants/data";
-import { UserService } from "../../../common/services/user/user.service";
-import { AddPersonDialogComponent } from "../add-person-dialog/add-person-dialog.component";
-import {UserRole} from "../../../common/models/user/role/role";
-import {UserAge} from "../../../common/models/user/age/age";
-import {MatSelectChange} from "@angular/material/select";
+import {User} from '../../../common/models/user/user';
+import { UserService } from '../../../common/services/user/user.service';
+import { AddPersonDialogComponent } from '../add-person-dialog/add-person-dialog.component';
+import {UserRole} from '../../../common/models/user/role/role';
+import {UserAge} from '../../../common/models/user/age/age';
+import {MatSelectChange} from '@angular/material/select';
+
+const columns = ['select', 'avatar', 'name', 'role', 'lastLoggedIn',
+  'profileViews', 'age', 'country', 'city', 'address', 'phone', 'company', 'connections'];
 
 @Component({
   selector: 'app-people-table',
   templateUrl: './people-table.component.html',
-  styleUrls: ['./people-table.component.scss']
+  styleUrls: ['./people-table.component.scss'],
 })
 export class PeopleTableComponent implements AfterViewInit, OnInit {
   public displayedColumns: string[] = columns;
-  public dataSource!: MatTableDataSource<User>; // filtered users
+  public dataSource: MatTableDataSource<User>; // filtered users
   public selection = new SelectionModel<User>(true, []);
-  public loader: boolean = true;
+  public loader = true;
   private allUsersData!: User[];
 
   public filters: any = {
@@ -29,7 +31,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     location: '',
     age: '',
     role: ''
-  }
+  };
 
   public ages: UserAge[] = [
     { label: 'less than 18', value: 18 },
@@ -75,7 +77,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
+  };
 
   public resetFilters(): void {
     this.filters.name = '';

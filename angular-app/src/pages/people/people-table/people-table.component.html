@@ -4,63 +4,82 @@
     <mat-form-field>
       <mat-label>Name...</mat-label>
       <label>
-        <input matInput [(ngModel)]="filters.name" name="name"
-               (input)="handleFilterChange($event, 'name')"
-               placeholder="Ex. Mia"
-               #name autocomplete="off">
+        <input
+          matInput
+          [(ngModel)]="filters.name"
+          name="name"
+          (input)="handleFilterChange($event, 'name')"
+          placeholder="Ex. Mia"
+          #name
+          autocomplete="off"
+        />
       </label>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Country/city...</mat-label>
       <label>
-        <input matInput [(ngModel)]="filters.location" name="location"
-               (input)="handleFilterChange($event, 'location')"
-               placeholder="Ex. Dublin"
-               #location autocomplete="off">
+        <input
+          matInput
+          [(ngModel)]="filters.location"
+          name="location"
+          (input)="handleFilterChange($event, 'location')"
+          placeholder="Ex. Dublin"
+          #location
+          autocomplete="off"
+        />
       </label>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Age...</mat-label>
-      <mat-select [(ngModel)]="filters.age" name="age" #age
-                  (selectionChange)="handleFilterChange($event, 'age')">
+      <mat-select
+        [(ngModel)]="filters.age"
+        name="age"
+        #age
+        (selectionChange)="handleFilterChange($event, 'age')"
+      >
         <mat-option *ngFor="let age of ages" [value]="age.value">
-          {{age.label}}
+          {{ age.label }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Role...</mat-label>
-      <mat-select [(ngModel)]="filters.role" name="role" #role
-                  (selectionChange)="handleFilterChange($event, 'role')">
+      <mat-select
+        [(ngModel)]="filters.role"
+        name="role"
+        #role
+        (selectionChange)="handleFilterChange($event, 'role')"
+      >
         <mat-option *ngFor="let role of roles" [value]="role.value">
-          {{role.value}}
+          {{ role.value }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </form>
   <div class="reset-filters">
-    <button mat-stroked-button class="reset-filters_button" (click)="resetFilters()">
+    <button
+      mat-stroked-button
+      class="reset-filters_button"
+      (click)="resetFilters()"
+    >
       RESET FILTERS
     </button>
   </div>
 </div>
 
 <div *ngIf="!selection.selected.length" class="selected-bar inactive">
-  <button mat-stroked-button
-      (click)="openDialog()"
-  >ADD PERSON</button>
+  <button mat-stroked-button (click)="openDialog()">ADD PERSON</button>
 </div>
 
 <div *ngIf="selection.selected.length" class="selected-bar active">
-  <p>{{selection.selected.length + ' selected'}}</p>
+  <p>{{ selection.selected.length + ' selected' }}</p>
   <button mat-mini-fab color="primary">
-    <mat-icon
-      class="delete-icon"
-      (click)="$event ? deleteUsers() : null"
-    >delete</mat-icon>
+    <mat-icon class="delete-icon" (click)="$event ? deleteUsers() : null"
+      >delete</mat-icon
+    >
   </button>
 </div>
 
@@ -72,83 +91,103 @@
   <table mat-table [dataSource]="dataSource" matSort class="people-table">
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllUsersSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllUsersSelected()"
-                      [aria-label]="checkboxLabel()">
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllUsersSelected()"
+          [indeterminate]="selection.hasValue() && !isAllUsersSelected()"
+          [aria-label]="checkboxLabel()"
+        >
         </mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)"
-                      [aria-label]="checkboxLabel(row)">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
         </mat-checkbox>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="avatar">
-      <th *matHeaderCellDef> Avatar </th>
+      <th *matHeaderCellDef>Avatar</th>
       <td mat-cell *matCellDef="let user">
-        <img src="{{user.avatar}}" class="avatar" alt="">
+        <img src="{{ user.avatar }}" class="avatar" alt="" />
       </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th *matHeaderCellDef mat-sort-header> Name </th>
+      <th *matHeaderCellDef mat-sort-header>Name</th>
       <td mat-cell *matCellDef="let user">
-        {{user.firstName + ' ' + user.lastName}}
+        {{ user.firstName + ' ' + user.lastName }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="role">
-      <th *matHeaderCellDef mat-sort-header> Role </th>
-      <td mat-cell *matCellDef="let user">{{user.role}}</td>
+      <th *matHeaderCellDef mat-sort-header>Role</th>
+      <td mat-cell *matCellDef="let user">{{ user.role }}</td>
     </ng-container>
 
     <ng-container matColumnDef="lastLoggedIn">
-      <th *matHeaderCellDef mat-sort-header> Last logged in </th>
-      <td mat-cell *matCellDef="let user" class="wide-column"> {{user.lastLoggedIn}}</td>
+      <th *matHeaderCellDef mat-sort-header>Last logged in</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.lastLoggedIn }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="profileViews">
-      <th *matHeaderCellDef mat-sort-header> Profile views </th>
-      <td mat-cell *matCellDef="let user" class="wide-column"> {{user.profileViews}}</td>
+      <th *matHeaderCellDef mat-sort-header>Profile views</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.profileViews }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="age">
-      <th *matHeaderCellDef mat-sort-header> Age </th>
-      <td mat-cell *matCellDef="let user"> {{user.age}}</td>
+      <th *matHeaderCellDef mat-sort-header>Age</th>
+      <td mat-cell *matCellDef="let user">{{ user.age }}</td>
     </ng-container>
 
     <ng-container matColumnDef="country">
-      <th *matHeaderCellDef mat-sort-header> Country </th>
-      <td mat-cell *matCellDef="let user" class="wide-column"> {{user.country}}</td>
+      <th *matHeaderCellDef mat-sort-header>Country</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.country }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="city">
-      <th *matHeaderCellDef mat-sort-header> City </th>
-      <td mat-cell *matCellDef="let user" class="wide-column"> {{user.city}}</td>
+      <th *matHeaderCellDef mat-sort-header>City</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.city }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="address">
-      <th *matHeaderCellDef mat-sort-header> Address </th>
-      <td mat-cell *matCellDef="let user" class="wide-column"> {{user.address}}</td>
+      <th *matHeaderCellDef mat-sort-header>Address</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.address }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="phone">
-      <th *matHeaderCellDef mat-sort-header> Phone </th>
-      <td mat-cell *matCellDef="let user" class="wide-column"> {{user.phone}}</td>
+      <th *matHeaderCellDef mat-sort-header>Phone</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.phone }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="company">
-      <th *matHeaderCellDef mat-sort-header> Company </th>
-      <td mat-cell *matCellDef="let user" class="wide-column"> {{user.company}}</td>
+      <th *matHeaderCellDef mat-sort-header>Company</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.company }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="connections">
-      <th *matHeaderCellDef mat-sort-header> Connections </th>
-      <td mat-cell *matCellDef="let user" class="wide-column">{{user.connections}}</td>
+      <th *matHeaderCellDef mat-sort-header>Connections</th>
+      <td mat-cell *matCellDef="let user" class="wide-column">
+        {{ user.connections }}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -156,8 +195,9 @@
 
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="14">
-        No data matching such filters. Name: "{{name.value}}",  location: "{{location.value}}",
-        age: "less than {{age.value}}" and role: "{{role.value}}".
+        No data matching such filters. Name: "{{ name.value }}", location: "{{
+          location.value
+        }}", age: "less than {{ age.value }}" and role: "{{ role.value }}".
       </td>
     </tr>
   </table>

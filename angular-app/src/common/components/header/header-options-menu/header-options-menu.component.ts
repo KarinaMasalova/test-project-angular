@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header-options-menu',
   templateUrl: './header-options-menu.component.html',
-  styleUrls: ['./header-options-menu.component.scss']
+  styleUrls: ['./header-options-menu.component.scss'],
 })
-export class HeaderOptionsMenuComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class HeaderOptionsMenuComponent {}

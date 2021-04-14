@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from "../../../common/services/user/user.service";
-import * as colors from "../../../common/constants/colors";
+import { UserService } from '../../../common/services/user/user.service';
+import * as colors from '../../../common/constants/colors';
 
 @Component({
   selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.scss']
+  templateUrl: './users-distribution-by-country.html',
+  styleUrls: ['./users-distribution-by-country.scss'],
 })
-export class BarChartComponent implements OnInit {
-  public chartType: string = 'horizontalBar';
+export class UsersDistributionByCountry implements OnInit {
+  public chartType = 'horizontalBar';
   public chartLabels: Array<any> = [''];
   public chartDatasets: Array<any> = [];
-  public chartReady: boolean = false;
+  public chartReady = false;
   private mapCollection: Map<string, object[]> = new Map();
   private valuesArray: any[] = [0];
   private countryPeople: any[] = [];

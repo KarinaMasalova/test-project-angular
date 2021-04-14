@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 
-import { UserService } from "../../../common/services/user/user.service";
-import { roundNumber } from "../../../common/utils/roundNumber";
-import * as colors from "../../../common/constants/colors";
+import { UserService } from '../../../common/services/user/user.service';
+import { roundNumber } from '../../../common/utils/roundNumber';
+import * as colors from '../../../common/constants/colors';
 
 @Component({
   selector: 'app-pie-chart',
-  templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss']
+  templateUrl: './user-ratio-by-role.component.html',
+  styleUrls: ['./user-ratio-by-role.component.scss'],
 })
 
-export class PieChartComponent implements OnInit {
-  public chartType: string = 'pie';
+export class UserRatioByRoleComponent implements OnInit {
+  public chartType = 'pie';
   public chartLabels: Array<any> = ['Clients', 'Lawyers'];
-  private lawyersAmount: number = 0;
-  private clientsAmount: number = 0;
+  private lawyersAmount = 0;
+  private clientsAmount = 0;
 
   constructor(private userService: UserService) { }
 

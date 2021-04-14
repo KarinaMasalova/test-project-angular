@@ -1,5 +1,9 @@
 @import '../../../common-scss/colors.scss';
 
+:host {
+  display: block;
+}
+
 .loader {
   margin-bottom: 40px;
 }

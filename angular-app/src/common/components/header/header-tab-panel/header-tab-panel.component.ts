@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {Router, NavigationEnd, RouterEvent} from "@angular/router";
+import { Component } from '@angular/core';
+import {Router, NavigationEnd, RouterEvent} from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-tab-panel',
   templateUrl: './header-tab-panel.component.html',
-  styleUrls: ['./header-tab-panel.component.scss']
+  styleUrls: ['./header-tab-panel.component.scss'],
 })
-export class HeaderTabPanelComponent implements OnInit {
+export class HeaderTabPanelComponent {
   private currentRoute!: string;
   public links = ['people', 'charts'];
   public activeLink = this.currentRoute === '/people'
@@ -25,8 +25,5 @@ export class HeaderTabPanelComponent implements OnInit {
         ? this.links[0]
         : this.links[1];
     });
-  }
-
-  ngOnInit(): void {
   }
 }
