@@ -4,18 +4,16 @@ import { ColorSchemeService } from '../../../services/color-scheme/color-scheme.
 
 enum Themes {
   light = 'Light',
-  dark = 'Dark'
+  dark = 'Dark',
 }
 
 @Component({
   selector: 'app-theme-toggle',
   templateUrl: './theme-toggle.component.html',
-  styleUrls: ['./theme-toggle.component.scss']
+  styleUrls: ['./theme-toggle.component.scss'],
 })
-
 export class ThemeToggleComponent {
-  public lightMode = Themes.light;
-  public darkMode = Themes.dark;
+  public themes = Themes;
 
   constructor(private colorSchemeService: ColorSchemeService) {}
 
@@ -23,7 +21,7 @@ export class ThemeToggleComponent {
     this.colorSchemeService.toggleDarkMode();
   }
 
-  public isDarkMode(): boolean {
-    return this.colorSchemeService.isDarkMode();
+  public get isDarkMode(): boolean {
+    return this.colorSchemeService.isDarkMode;
   }
 }

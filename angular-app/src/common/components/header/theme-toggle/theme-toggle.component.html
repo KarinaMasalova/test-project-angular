@@ -1,8 +1,8 @@
 <div class="toggle">
-  {{lightMode}}
+  {{themes.light}}
   <mat-slide-toggle
     (change)="changeTheme()"
-    [checked]="isDarkMode()"
+    [checked]="isDarkMode"
   ></mat-slide-toggle>
-  {{darkMode}}
+  {{themes.dark}}
 </div>

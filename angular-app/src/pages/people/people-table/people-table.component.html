@@ -1,6 +1,6 @@
 <div class="search-filters">
   <h1 class="search-filters_title">Our people</h1>
-  <form autocomplete="off" novalidate class="search-filters_form">
+  <div class="search-filters_fields">
     <mat-form-field>
       <mat-label>Name...</mat-label>
       <label>
@@ -8,10 +8,10 @@
           matInput
           [(ngModel)]="filters.name"
           name="name"
-          (input)="handleFilterChange($event, 'name')"
           placeholder="Ex. Mia"
           #name
           autocomplete="off"
+          (input)="handleFilterChange($event, 'name')"
         />
       </label>
     </mat-form-field>
@@ -23,10 +23,10 @@
           matInput
           [(ngModel)]="filters.location"
           name="location"
-          (input)="handleFilterChange($event, 'location')"
           placeholder="Ex. Dublin"
           #location
           autocomplete="off"
+          (input)="handleFilterChange($event, 'location')"
         />
       </label>
     </mat-form-field>
@@ -39,7 +39,7 @@
         #age
         (selectionChange)="handleFilterChange($event, 'age')"
       >
-        <mat-option *ngFor="let age of ages" [value]="age.value">
+        <mat-option *ngFor="let age of ages" [value]="age.maxAge">
           {{ age.label }}
         </mat-option>
       </mat-select>
@@ -53,12 +53,12 @@
         #role
         (selectionChange)="handleFilterChange($event, 'role')"
       >
-        <mat-option *ngFor="let role of roles" [value]="role.value">
-          {{ role.value }}
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{ role }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </form>
+  </div>
   <div class="reset-filters">
     <button
       mat-stroked-button
@@ -77,13 +77,13 @@
 <div *ngIf="selection.selected.length" class="selected-bar active">
   <p>{{ selection.selected.length + ' selected' }}</p>
   <button mat-mini-fab color="primary">
-    <mat-icon class="delete-icon" (click)="$event ? deleteUsers() : null"
+    <mat-icon class="delete-icon" (click)="deleteUsers()"
       >delete</mat-icon
     >
   </button>
 </div>
 
-<div class="loader" *ngIf="loader">
+<div class="loader" *ngIf="loading">
   <app-loader></app-loader>
 </div>
 
@@ -92,19 +92,17 @@
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
         <mat-checkbox
-          (change)="$event ? masterToggle() : null"
-          [checked]="selection.hasValue() && isAllUsersSelected()"
-          [indeterminate]="selection.hasValue() && !isAllUsersSelected()"
-          [aria-label]="checkboxLabel()"
+          (change)="toggleCheckbox()"
+          [checked]="selection.hasValue() && isAllUsersSelected"
+          [indeterminate]="selection.hasValue() && !isAllUsersSelected"
         >
         </mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let row">
         <mat-checkbox
           (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null"
+          (change)="selection.toggle(row)"
           [checked]="selection.isSelected(row)"
-          [aria-label]="checkboxLabel(row)"
         >
         </mat-checkbox>
       </td>
@@ -124,7 +122,7 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="role">
+    <ng-container matColumnDef="userRole">
       <th *matHeaderCellDef mat-sort-header>Role</th>
       <td mat-cell *matCellDef="let user">{{ user.role }}</td>
     </ng-container>

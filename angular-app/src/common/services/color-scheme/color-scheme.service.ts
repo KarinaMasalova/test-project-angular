@@ -3,20 +3,20 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-
 export class ColorSchemeService {
   private renderer: Renderer2;
   private colorTheme = '';
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
-    this.colorTheme = localStorage.getItem('theme') ||
+    this.colorTheme =
+      localStorage.getItem('theme') ||
       (window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark-theme'
         : 'light-theme');
   }
 
-  public isDarkMode(): boolean {
+  public get isDarkMode(): boolean {
     return this.colorTheme === 'dark-theme';
   }
 
@@ -27,7 +27,8 @@ export class ColorSchemeService {
 
   public updateTheme(theme: 'dark-theme' | 'light-theme'): void {
     this.setColorTheme(theme);
-    const previousColorTheme = (theme === 'dark-theme') ? 'light-theme' : 'dark-theme';
+    const previousColorTheme =
+      theme === 'dark-theme' ? 'light-theme' : 'dark-theme';
     this.renderer.removeClass(document.body, previousColorTheme);
     this.renderer.addClass(document.body, theme);
   }

@@ -14,3 +14,13 @@ export interface User {
   company: string;
   connections: string[];
 }
+
+export interface UserAge {
+  label: string;
+  maxAge: number;
+}
+
+export enum UserRoles {
+  lawyer,
+  client,
+}

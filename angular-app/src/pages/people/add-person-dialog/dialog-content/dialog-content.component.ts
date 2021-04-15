@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {UserRole} from '../../../../common/models/user/role/role';
-import {UserService} from '../../../../common/services/user/user.service';
-import {ErrorSnackbarComponent} from '../error-snackbar/error-snackbar.component';
+import { UserService } from '../../../../common/services/user/user.service';
+import { ErrorSnackbarComponent } from '../error-snackbar/error-snackbar.component';
+import { UserRoles } from '../../../../common/models/user/user';
 
 @Component({
   selector: 'app-dialog-content',
@@ -29,12 +29,14 @@ export class DialogContentComponent implements OnInit {
     connections: new FormControl([]),
   });
 
-  public roles: UserRole[] = [
-    {value: 'lawyer'},
-    {value: 'client'},
-  ];
+  public roles = Object.values(UserRoles).filter(
+    (i) => !(typeof i === 'number')
+  );
 
-  constructor(private userService: UserService, private snackbar: ErrorSnackbarComponent) { }
+  constructor(
+    private userService: UserService,
+    private snackbar: ErrorSnackbarComponent
+  ) {}
 
   public addPeople() {
     if (!this.addPersonForm.valid) {
@@ -49,7 +51,8 @@ export class DialogContentComponent implements OnInit {
   }
 
   private getAllConnections() {
-    return this.userService.getUsers()
-      .subscribe((users) => this.connectionsList = users);
+    return this.userService
+      .getUsers()
+      .subscribe((users) => (this.connectionsList = users));
   }
 }
