@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import {Router, NavigationEnd, RouterEvent} from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router, RouterEvent } from '@angular/router';
 
-// enum tabs {
-//   people: 'people',
-//   charts: 'charts'
-// }
+enum Tabs {
+  people = 'people',
+  charts = 'charts',
+}
 
 @Component({
   selector: 'app-header-tab-panel',
@@ -13,22 +12,17 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./header-tab-panel.component.scss'],
 })
 export class HeaderTabPanelComponent {
-  public currentRoute!: string;
-  public links = ['people', 'charts'];
-  public activeLink = this.currentRoute === '/people'
-    ? this.links[0]
-    : this.links[1];
+  public tabs = Tabs;
+  public activeLink: string | undefined;
+  private currentRoute: string | undefined;
 
-  constructor(private router: Router) {
-    router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event) => {
+  constructor(private readonly router: Router) {
+    router.events.subscribe((event) => {
       if (event instanceof RouterEvent) {
         this.currentRoute = event.url;
+        this.activeLink =
+          this.currentRoute === '/people' ? this.tabs.people : this.tabs.charts;
       }
-      this.activeLink = this.currentRoute === '/people'
-        ? this.links[0]
-        : this.links[1];
     });
   }
 }

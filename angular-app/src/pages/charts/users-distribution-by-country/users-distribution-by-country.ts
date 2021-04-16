@@ -13,45 +13,50 @@ export class UsersDistributionByCountryComponent implements OnInit {
   public chartLabels: Array<any> = [''];
   public chartDatasets: Array<any> = [];
   public chartReady = false;
-  public chartColors: Array<any> = [{
-    backgroundColor: colors.turquoiseHover,
-    borderColor: colors.turquoise,
-    borderWidth: 2,
-  }];
+  public chartColors: Array<any> = [
+    {
+      backgroundColor: colors.turquoiseHover,
+      borderColor: colors.turquoise,
+      borderWidth: 2,
+    },
+  ];
   public chartOptions: any = {
-    responsive: true
+    responsive: true,
   };
 
   private mapCollection: Map<string, object[]> = new Map();
   private valuesArray: any[] = [0];
   private countryPeople: any[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   ngOnInit(): void {
     this.setChartData();
   }
 
   private setMapCollection(users: any[]): void {
-    users.map(user => {
+    users.map((user) => {
       this.countryPeople = this.mapCollection.get(user.country) || [];
-      this.mapCollection.set(user.country, [...this.countryPeople, {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName
-      }]);
+      this.mapCollection.set(user.country, [
+        ...this.countryPeople,
+        {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        },
+      ]);
     });
   }
 
   private setChartData(): void {
-    this.userService.getUsers().subscribe(users => {
+    this.userService.getUsers().subscribe((users) => {
       this.setMapCollection(users);
       for (const [key, value] of this.mapCollection) {
         this.valuesArray = [...this.valuesArray, value.length];
         this.chartLabels = [...this.chartLabels, key];
       }
       this.chartDatasets = [
-        { data: this.valuesArray, label: 'People from Different Countries' }
+        { data: this.valuesArray, label: 'People from Different Countries' },
       ];
       this.chartReady = true;
     });

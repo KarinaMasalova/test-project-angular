@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { DialogContentComponent } from './dialog-content/dialog-content.component';
 
@@ -9,7 +9,7 @@ import { DialogContentComponent } from './dialog-content/dialog-content.componen
   styleUrls: ['./add-person-dialog.component.scss'],
 })
 export class AddPersonDialogComponent {
-  constructor(private dialog: MatDialog) { }
+  constructor(private readonly dialog: MatDialog) {}
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(DialogContentComponent);

@@ -9,7 +9,7 @@ import { url } from '../../constants/api';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClientService) {}
+  constructor(private readonly http: HttpClientService) {}
 
   public getUsers(): Observable<User[]> {
     return this.http.get<User>(url);

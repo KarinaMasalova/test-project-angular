@@ -61,8 +61,8 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   private allUsersData!: User[];
 
   constructor(
-    private userService: UserService,
-    private dialog: AddPersonDialogComponent
+    private readonly userService: UserService,
+    private readonly dialog: AddPersonDialogComponent
   ) {
     this.dataSource = new MatTableDataSource();
   }

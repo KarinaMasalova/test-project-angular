@@ -7,7 +7,7 @@ export class ColorSchemeService {
   private renderer: Renderer2;
   private colorTheme = '';
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(private readonly rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
     this.colorTheme =
       localStorage.getItem('theme') ||

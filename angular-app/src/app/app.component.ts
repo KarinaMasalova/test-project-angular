@@ -8,7 +8,7 @@ import { ColorSchemeService } from '../common/services/color-scheme/color-scheme
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private colorSchemeService: ColorSchemeService) {
+  constructor(private readonly colorSchemeService: ColorSchemeService) {
     this.colorSchemeService.initTheme();
   }
 }

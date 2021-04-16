@@ -15,7 +15,7 @@ enum Themes {
 export class ThemeToggleComponent {
   public themes = Themes;
 
-  constructor(private colorSchemeService: ColorSchemeService) {}
+  constructor(private readonly colorSchemeService: ColorSchemeService) {}
 
   public changeTheme(): void {
     this.colorSchemeService.toggleDarkMode();
