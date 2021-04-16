@@ -15,7 +15,7 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
-  public addUser(user: any): Observable<User> {
+  public addUser(user: User): Observable<User> {
     return this.http.post<User>(url, user);
   }
 

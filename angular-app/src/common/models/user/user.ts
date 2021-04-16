@@ -24,3 +24,9 @@ export enum UserRoles {
   lawyer,
   client,
 }
+
+export interface BriefUserInfo {
+  id: string;
+  firstName: string;
+  lastName: string;
+}

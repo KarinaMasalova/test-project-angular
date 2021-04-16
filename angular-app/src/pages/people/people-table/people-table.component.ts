@@ -25,7 +25,14 @@ const columns = [
   'connections',
 ];
 
-const initialFilters = {
+interface InitialFilters {
+  name: string;
+  location: string;
+  age: string;
+  role: string;
+}
+
+const initialFilters: InitialFilters = {
   name: '',
   location: '',
   age: '',
@@ -49,7 +56,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
-  public filters: any = initialFilters;
+  public filters = initialFilters;
   public ages = userAges;
   public roles = Object.values(UserRoles).filter(
     (i) => !(typeof i === 'number')
@@ -73,10 +80,16 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.showUsers();
+    this.getAllUsers();
   }
 
   public resetFilters(): void {
+    this.filters = {
+      name: '',
+      location: '',
+      age: '',
+      role: '',
+    };
     this.dataSource.data = this.allUsersData;
   }
 
@@ -95,9 +108,9 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   }
 
   public deleteUsers(): void {
-    const selecteds = this.selection.selected;
-    const selectedIds = selecteds.map((person) => person.id);
-    selecteds.forEach((person) =>
+    const selectedUsers = this.selection.selected;
+    const selectedIds = selectedUsers.map((person) => person.id);
+    selectedUsers.forEach((person) =>
       this.userService.deleteUser(+person.id).subscribe()
     );
 
@@ -126,14 +139,14 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
       const country = user.country
         .toLowerCase()
         .includes(this.filters.location.toLowerCase());
-      const age = this.filters.age === '' || user.age < this.filters.age;
+      const age = this.filters.age === '' || user.age < +this.filters.age;
       const role = this.filters.role === '' || user.role === this.filters.role;
 
       return (firstname || lastname) && (city || country) && age && role;
     });
   }
 
-  private showUsers(): Subscription {
+  private getAllUsers(): Subscription {
     return this.userService.getUsers().subscribe((users) => {
       this.dataSource.data = users;
       this.allUsersData = users;

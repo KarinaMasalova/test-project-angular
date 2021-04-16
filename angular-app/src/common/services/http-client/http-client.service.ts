@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class HttpClientService {
     return this.http.get<T[]>(url).pipe(catchError(this.handleError<T[]>([])));
   }
 
-  public post<T>(url: string, entity: object): Observable<T> {
+  public post<T>(url: string, entity: unknown): Observable<T> {
     return this.http.post<T>(url, entity, this.httpOptions).pipe(
       tap((newEntity: T) => console.log(`added: ${newEntity}`)),
       catchError(this.handleError<T>())
@@ -33,9 +33,6 @@ export class HttpClientService {
   }
 
   private handleError<T>(result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T); // let the app keep running by returning an empty result
-    };
+    return (): Observable<T> => throwError(result as T);
   }
 }

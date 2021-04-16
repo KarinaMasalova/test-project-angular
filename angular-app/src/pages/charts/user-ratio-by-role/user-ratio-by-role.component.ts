@@ -3,6 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../common/services/user/user.service';
 import { roundNumber } from '../../../common/utils/roundNumber';
 import * as colors from '../../../common/constants/colors';
+import {
+  ChartColors,
+  ChartDatasets,
+  ChartOptions,
+} from '../../../common/models/chart/chart';
+
+enum ChartLabels {
+  clients = 'Clients',
+  lawyers = 'Lawyers',
+}
 
 @Component({
   selector: 'app-pie-chart',
@@ -11,29 +21,33 @@ import * as colors from '../../../common/constants/colors';
 })
 export class UserRatioByRoleComponent implements OnInit {
   public chartType = 'pie';
-  public chartLabels: Array<any> = ['Clients', 'Lawyers'];
+  public chartLabels: Array<string> = [
+    ChartLabels.clients,
+    ChartLabels.lawyers,
+  ];
   public lawyersAmount = 0;
   public clientsAmount = 0;
-  public chartDatasets: Array<any> = [
+  public chartDatasets: Array<ChartDatasets> = [
     {
       data: [this.clientsAmount, this.lawyersAmount],
       label: 'The ratio of clients and lawyers',
     },
   ];
-  public chartColors: Array<any> = [
+  public chartColors: Array<ChartColors> = [
     {
       backgroundColor: [colors.orange, colors.yellow],
+      borderColor: colors.orange,
       hoverBackgroundColor: [colors.orangeHover, colors.yellowHover],
       borderWidth: 2,
     },
   ];
-  public chartOptions: any = {
+  public chartOptions: ChartOptions = {
     responsive: true,
   };
 
   constructor(private readonly userService: UserService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.setPeopleAmount();
   }
 

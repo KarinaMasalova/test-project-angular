@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../../../common/services/user/user.service';
 import * as colors from '../../../common/constants/colors';
+import { BriefUserInfo, User } from '../../../common/models/user/user';
+import {
+  ChartColors,
+  ChartDatasets,
+  ChartOptions,
+} from '../../../common/models/chart/chart';
 
 @Component({
   selector: 'app-bar-chart',
@@ -10,23 +16,24 @@ import * as colors from '../../../common/constants/colors';
 })
 export class UsersDistributionByCountryComponent implements OnInit {
   public chartType = 'horizontalBar';
-  public chartLabels: Array<any> = [''];
-  public chartDatasets: Array<any> = [];
+  public chartLabels: Array<string> = [];
+  public chartDatasets: Array<ChartDatasets> = [];
   public chartReady = false;
-  public chartColors: Array<any> = [
+  public chartColors: ChartColors[] = [
     {
       backgroundColor: colors.turquoiseHover,
+      hoverBackgroundColor: colors.turquoise,
       borderColor: colors.turquoise,
       borderWidth: 2,
     },
   ];
-  public chartOptions: any = {
+  public chartOptions: ChartOptions = {
     responsive: true,
   };
 
-  private mapCollection: Map<string, object[]> = new Map();
-  private valuesArray: any[] = [0];
-  private countryPeople: any[] = [];
+  private mapCollection: Map<string, BriefUserInfo[]> = new Map();
+  private valuesArray: number[] = [0];
+  private countryPeople: BriefUserInfo[] = [];
 
   constructor(private readonly userService: UserService) {}
 
@@ -34,7 +41,7 @@ export class UsersDistributionByCountryComponent implements OnInit {
     this.setChartData();
   }
 
-  private setMapCollection(users: any[]): void {
+  private setMapCollection(users: User[]): void {
     users.map((user) => {
       this.countryPeople = this.mapCollection.get(user.country) || [];
       this.mapCollection.set(user.country, [

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { UserService } from '../../../../common/services/user/user.service';
 import { ErrorSnackbarComponent } from '../error-snackbar/error-snackbar.component';
-import { UserRoles } from '../../../../common/models/user/user';
+import { User, UserRoles } from '../../../../common/models/user/user';
 
 @Component({
   selector: 'app-dialog-content',
@@ -12,7 +12,7 @@ import { UserRoles } from '../../../../common/models/user/user';
   styleUrls: ['./dialog-content.component.scss'],
 })
 export class DialogContentComponent implements OnInit {
-  public connectionsList: Array<any> = [];
+  public connectionsList: User[] = [];
   public addPersonForm: FormGroup;
 
   public roles = Object.values(UserRoles).filter(
