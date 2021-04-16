@@ -3,11 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Subscription } from 'rxjs';
 
 import { User, UserAge, UserRoles } from '../../../common/models/user/user';
 import { UserService } from '../../../common/services/user/user.service';
 import { AddPersonDialogComponent } from '../add-person-dialog/add-person-dialog.component';
-import { MatSelectChange } from '@angular/material/select';
 
 const columns = [
   'select',
@@ -76,31 +76,12 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     this.showUsers();
   }
 
-  public handleFilterChange = (
-    event: Event | MatSelectChange,
-    filter: string
-  ) => {
-    const obj = { ...this.filters };
-
-    if (!(event instanceof MatSelectChange)) {
-      obj[
-        filter
-      ] = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    } else {
-      obj[filter] = event.value as HTMLSelectElement;
-    }
-
-    this.filters = obj;
-    this.dataSource.data = this.filterUsers();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  };
-
   public resetFilters(): void {
-    this.filters = initialFilters;
     this.dataSource.data = this.allUsersData;
+  }
+
+  public onSearchButtonClick(): void {
+    this.dataSource.data = this.filterUsers();
   }
 
   public get isAllUsersSelected(): boolean {
@@ -152,7 +133,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     });
   }
 
-  private showUsers() {
+  private showUsers(): Subscription {
     return this.userService.getUsers().subscribe((users) => {
       this.dataSource.data = users;
       this.allUsersData = users;

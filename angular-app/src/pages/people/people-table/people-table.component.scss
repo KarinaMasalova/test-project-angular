@@ -27,16 +27,25 @@
     flex-wrap: wrap;
   }
 
-  .reset-filters {
+  &_buttons {
     text-align: right;
 
-    &_button {
+    .button {
       border-color: $colorPrimary;
-      margin-top: 20px;
+      margin: 20px 10px 0 0;
       max-width: 140px;
 
       &:focus {
         outline: none;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &_search {
+        background-color: $colorPrimary;
+        color: #fff;
       }
     }
   }
