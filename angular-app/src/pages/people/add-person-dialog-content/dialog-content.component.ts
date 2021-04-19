@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 
-import { UserService } from '../../../../common/services/user/user.service';
-import { ErrorSnackbarComponent } from '../error-snackbar/error-snackbar.component';
-import { User, UserRoles } from '../../../../common/models/user/user';
+import { UserService } from '../../../common/services/user/user.service';
+import { User, UserRoles } from '../../../common/models/user/user';
 
 @Component({
   selector: 'app-dialog-content',
@@ -18,17 +18,31 @@ export class DialogContentComponent implements OnInit {
   public roles = Object.values(UserRoles).filter(
     (i) => !(typeof i === 'number')
   );
+  private durationInSeconds = 5;
 
   constructor(
     private readonly userService: UserService,
-    private readonly snackbar: ErrorSnackbarComponent
+    private readonly snackBar: MatSnackBar
   ) {
     this.addPersonForm = this.initFormGroup();
   }
 
+  public showSnackbar(): void {
+    this.snackBar.open(
+      "ERROR: the user wasn't added. Please, make sure that " +
+        'all the fields are filled in.',
+      'OK',
+      {
+        duration: this.durationInSeconds * 1000,
+        horizontalPosition: 'end',
+        panelClass: ['error-snackbar'],
+      }
+    );
+  }
+
   public addPeople(): Subscription | undefined {
     if (!this.addPersonForm.valid) {
-      this.snackbar.open();
+      this.showSnackbar();
       return;
     }
     return this.userService.addUser(this.addPersonForm.value).subscribe();

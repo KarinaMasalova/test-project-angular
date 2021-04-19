@@ -3,11 +3,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
 import { User, UserAge, UserRoles } from '../../../common/models/user/user';
 import { UserService } from '../../../common/services/user/user.service';
-import { AddPersonDialogComponent } from '../add-person-dialog/add-person-dialog.component';
+import { DialogContentComponent } from '../add-person-dialog-content/dialog-content.component';
 
 const columns = [
   'select',
@@ -69,7 +70,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   constructor(
     private readonly userService: UserService,
-    private readonly dialog: AddPersonDialogComponent
+    private readonly dialog: MatDialog
   ) {
     this.dataSource = new MatTableDataSource();
   }
@@ -121,10 +122,6 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     this.selection = new SelectionModel<User>(true, []);
   }
 
-  public openDialog(): void {
-    this.dialog.openDialog();
-  }
-
   public filterUsers(): User[] {
     return this.allUsersData.filter((user) => {
       const firstname = user.firstName
@@ -144,6 +141,11 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
       return (firstname || lastname) && (city || country) && age && role;
     });
+  }
+
+  public openDialog(): void {
+    const dialogRef = this.dialog.open(DialogContentComponent);
+    dialogRef.afterClosed().subscribe();
   }
 
   private getAllUsers(): Subscription {

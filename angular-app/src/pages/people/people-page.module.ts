@@ -12,13 +12,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { ErrorSnackbarComponent } from './add-person-dialog/error-snackbar/error-snackbar.component';
 import { LoaderModule } from '../../common/components/loader/loader.module';
-import { DialogModule } from './add-person-dialog/dialog.module';
-import { SnackbarModule } from './add-person-dialog/error-snackbar/snackbar.module';
+import { DialogModule } from './add-person-dialog-content/dialog.module';
 
 @NgModule({
-  declarations: [PeopleTableComponent, ErrorSnackbarComponent],
+  declarations: [PeopleTableComponent],
   imports: [
     CommonModule,
     MatTableModule,
@@ -34,7 +32,6 @@ import { SnackbarModule } from './add-person-dialog/error-snackbar/snackbar.modu
     FormsModule,
     LoaderModule,
     DialogModule,
-    SnackbarModule,
   ],
   exports: [PeopleTableComponent],
 })

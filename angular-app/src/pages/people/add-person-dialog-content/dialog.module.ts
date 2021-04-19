@@ -1,20 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogContentComponent } from './dialog-content/dialog-content.component';
-import { AddPersonDialogComponent } from './add-person-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { DialogContentComponent } from './dialog-content.component';
 
 @NgModule({
-  declarations: [DialogContentComponent, AddPersonDialogComponent],
+  declarations: [DialogContentComponent],
   imports: [
     CommonModule,
     MatDialogModule,
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
   ],
-  providers: [AddPersonDialogComponent, DialogContentComponent],
+  providers: [MatSnackBar],
 })
 export class DialogModule {}
