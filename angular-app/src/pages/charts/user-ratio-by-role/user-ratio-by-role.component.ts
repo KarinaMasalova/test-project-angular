@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 import { UserService } from '../../../common/services/user/user.service';
 import { roundNumber } from '../../../common/utils/roundNumber';
 import * as colors from '../../../common/constants/colors';
+import { UserRoles } from '../../../common/models/user/user';
 import {
   ChartColors,
   ChartDatasets,
@@ -52,23 +54,30 @@ export class UserRatioByRoleComponent implements OnInit {
   }
 
   private setPeopleAmount(): void {
-    this.userService.getUsers().subscribe((users) => {
-      this.lawyersAmount = roundNumber(
-        (users.filter((user) => user.role === 'lawyer').length * 100) /
-          users.length,
-        2
-      );
-      this.clientsAmount = roundNumber(
-        (users.filter((user) => user.role === 'client').length * 100) /
-          users.length,
-        2
-      );
-      this.chartDatasets = [
-        {
-          data: [this.clientsAmount, this.lawyersAmount],
-          label: 'The ratio of clients and lawyers',
-        },
-      ];
-    });
+    this.userService
+      .getUsers()
+      .pipe(
+        map((users) => {
+          this.lawyersAmount = roundNumber(
+            (users.filter((user) => user.role === UserRoles.lawyer).length *
+              100) /
+              users.length,
+            2
+          );
+          this.clientsAmount = roundNumber(
+            (users.filter((user) => user.role === UserRoles.client).length *
+              100) /
+              users.length,
+            2
+          );
+          this.chartDatasets = [
+            {
+              data: [this.clientsAmount, this.lawyersAmount],
+              label: 'The ratio of clients and lawyers',
+            },
+          ];
+        })
+      )
+      .subscribe();
   }
 }

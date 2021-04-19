@@ -21,8 +21,8 @@ export interface UserAge {
 }
 
 export enum UserRoles {
-  lawyer,
-  client,
+  lawyer = 'lawyer',
+  client = 'client',
 }
 
 export interface BriefUserInfo {

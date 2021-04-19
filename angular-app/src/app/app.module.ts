@@ -4,21 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSortModule } from '@angular/material/sort';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { MatSelectModule } from '@angular/material/select';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,13 +13,8 @@ import { HeaderOptionsMenuComponent } from '../common/components/header/header-o
 import { ThemeToggleComponent } from '../common/components/header/theme-toggle/theme-toggle.component';
 import { PeopleComponent } from '../pages/people/people.component';
 import { ChartsComponent } from '../pages/charts/charts.component';
-import { PeopleTableComponent } from '../pages/people/people-table/people-table.component';
-import { UserRatioByRoleComponent } from '../pages/charts/user-ratio-by-role/user-ratio-by-role.component';
-import { UsersDistributionByCountryComponent } from '../pages/charts/users-distribution-by-country/users-distribution-by-country';
-import { AddPersonDialogComponent } from '../pages/people/add-person-dialog/add-person-dialog.component';
-import { DialogContentComponent } from '../pages/people/add-person-dialog/dialog-content/dialog-content.component';
-import { ErrorSnackbarComponent } from '../pages/people/add-person-dialog/error-snackbar/error-snackbar.component';
-import { LoaderComponent } from '../common/components/loader/loader.component';
+import { PeoplePageModule } from '../pages/people/people-page.module';
+import { ChartsPageModule } from '../pages/charts/charts-page.module';
 
 @NgModule({
   declarations: [
@@ -45,13 +25,6 @@ import { LoaderComponent } from '../common/components/loader/loader.component';
     ThemeToggleComponent,
     PeopleComponent,
     ChartsComponent,
-    PeopleTableComponent,
-    UserRatioByRoleComponent,
-    UsersDistributionByCountryComponent,
-    AddPersonDialogComponent,
-    DialogContentComponent,
-    ErrorSnackbarComponent,
-    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -60,29 +33,9 @@ import { LoaderComponent } from '../common/components/loader/loader.component';
     MatTabsModule,
     MatMenuModule,
     MatSlideToggleModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSortModule,
-    HttpClientModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatIconModule,
-    MDBBootstrapModule.forRoot(),
-    MatDialogModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule
+    PeoplePageModule,
+    ChartsPageModule,
   ],
-  providers: [
-    AddPersonDialogComponent,
-    DialogContentComponent,
-    ErrorSnackbarComponent,
-    MatSnackBar,
-    LoaderComponent
-  ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
