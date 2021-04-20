@@ -2,28 +2,56 @@
   <h1 class="search-filters_title">Our people</h1>
   <div class="search-filters_fields">
     <mat-form-field>
-      <mat-label>Name...</mat-label>
+      <mat-label>Firstname...</mat-label>
       <label>
         <input
           matInput
-          [(ngModel)]="filters.name"
-          name="name"
+          [(ngModel)]="filters.firstname"
+          name="firstname"
           placeholder="Ex. Mia"
-          #name
+          #firstname
           autocomplete="off"
         />
       </label>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Country/city...</mat-label>
+      <mat-label>Lastname...</mat-label>
       <label>
         <input
           matInput
-          [(ngModel)]="filters.location"
-          name="location"
-          placeholder="Ex. Dublin"
-          #location
+          [(ngModel)]="filters.lastname"
+          name="lastname"
+          placeholder="Ex. Smith"
+          #lastname
+          autocomplete="off"
+        />
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Country...</mat-label>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.country"
+          name="country"
+          placeholder="Ex. Austria"
+          #country
+          autocomplete="off"
+        />
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>City...</mat-label>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.city"
+          name="city"
+          placeholder="Ex. Vienna"
+          #city
           autocomplete="off"
         />
       </label>
@@ -31,15 +59,16 @@
 
     <mat-form-field>
       <mat-label>Age...</mat-label>
-      <mat-select
-        [(ngModel)]="filters.age"
-        name="age"
-        #age
-      >
-        <mat-option *ngFor="let age of ages" [value]="age.maxAge">
-          {{ age.label }}
-        </mat-option>
-      </mat-select>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.age"
+          name="age"
+          placeholder="Ex. 21"
+          #age
+          autocomplete="off"
+        />
+      </label>
     </mat-form-field>
 
     <mat-form-field>
@@ -196,9 +225,9 @@
 
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="14">
-        No data matching such filters. Name: "{{ name.value }}", location: "{{
-          location.value
-        }}", age: "less than {{ age.value }}" and role: "{{ role.value }}".
+        No data matching such filters. Firstname: "{{ firstname.value }}", lastname:
+        "{{ lastname.value }}", country: "{{country.value}}", city: "{{city.value}}",
+        age: "{{ age.value }}" and role: "{{ role.value }}".
       </td>
     </tr>
   </table>

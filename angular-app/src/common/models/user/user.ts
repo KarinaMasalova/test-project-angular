@@ -15,11 +15,6 @@ export interface User {
   connections: string[];
 }
 
-export interface UserAge {
-  label: string;
-  maxAge: number;
-}
-
 export enum UserRoles {
   lawyer = 'lawyer',
   client = 'client',

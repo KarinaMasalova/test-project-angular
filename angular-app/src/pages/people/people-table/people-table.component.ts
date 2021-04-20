@@ -6,7 +6,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
-import { User, UserAge, UserRoles } from '../../../common/models/user/user';
+import { User, UserRoles } from '../../../common/models/user/user';
 import { UserService } from '../../../common/services/user/user.service';
 import { DialogContentComponent } from '../add-person-dialog-content/dialog-content.component';
 
@@ -27,26 +27,22 @@ const columns = [
 ];
 
 interface InitialFilters {
-  name: string;
-  location: string;
+  firstname: string;
+  lastname: string;
+  country: string;
+  city: string;
   age: string;
   role: string;
 }
 
 const initialFilters: InitialFilters = {
-  name: '',
-  location: '',
+  firstname: '',
+  lastname: '',
+  country: '',
+  city: '',
   age: '',
   role: '',
 };
-
-const userAges: UserAge[] = [
-  { label: 'less than 18', maxAge: 18 },
-  { label: 'less than 25', maxAge: 25 },
-  { label: 'less than 35', maxAge: 35 },
-  { label: 'less than 50', maxAge: 50 },
-  { label: 'less than 100', maxAge: 100 },
-];
 
 @Component({
   selector: 'app-people-table',
@@ -58,7 +54,6 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort: MatSort | null = null;
 
   public filters = initialFilters;
-  public ages = userAges;
   public roles = Object.values(UserRoles).filter(
     (i) => !(typeof i === 'number')
   );
@@ -86,8 +81,10 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   public resetFilters(): void {
     this.filters = {
-      name: '',
-      location: '',
+      firstname: '',
+      lastname: '',
+      country: '',
+      city: '',
       age: '',
       role: '',
     };
@@ -126,20 +123,20 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     return this.allUsersData.filter((user) => {
       const firstname = user.firstName
         .toLowerCase()
-        .includes(this.filters.name.toLowerCase());
+        .includes(this.filters.firstname.toLowerCase());
       const lastname = user.lastName
         .toLowerCase()
-        .includes(this.filters.name.toLowerCase());
+        .includes(this.filters.lastname.toLowerCase());
       const city = user.city
         .toLowerCase()
-        .includes(this.filters.location.toLowerCase());
+        .includes(this.filters.city.toLowerCase());
       const country = user.country
         .toLowerCase()
-        .includes(this.filters.location.toLowerCase());
-      const age = this.filters.age === '' || user.age < +this.filters.age;
+        .includes(this.filters.country.toLowerCase());
+      const age = this.filters.age === '' || user.age === +this.filters.age;
       const role = this.filters.role === '' || user.role === this.filters.role;
 
-      return (firstname || lastname) && (city || country) && age && role;
+      return firstname && lastname && city && country && age && role;
     });
   }
 
