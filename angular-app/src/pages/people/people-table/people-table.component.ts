@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { User, UserRoles } from '../../../common/models/user/user';
 import { UserService } from '../../../common/services/user/user.service';
@@ -109,14 +110,18 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     const selectedUsers = this.selection.selected;
     const selectedIds = selectedUsers.map((person) => person.id);
     selectedUsers.forEach((person) =>
-      this.userService.deleteUser(+person.id).subscribe()
+      this.userService
+        .deleteUser(+person.id)
+        .pipe(
+          tap(() => {
+            this.dataSource.data = this.dataSource.data.filter(
+              (person) => !selectedIds.includes(person.id)
+            );
+            this.selection = new SelectionModel<User>(true, []);
+          })
+        )
+        .subscribe()
     );
-
-    this.dataSource.data = this.dataSource.data.filter(
-      (person) => !selectedIds.includes(person.id)
-    );
-
-    this.selection = new SelectionModel<User>(true, []);
   }
 
   public filterUsers(): User[] {
@@ -146,10 +151,15 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   }
 
   private getAllUsers(): Subscription {
-    return this.userService.getUsers().subscribe((users) => {
-      this.dataSource.data = users;
-      this.allUsersData = users;
-      this.loading = false;
-    });
+    return this.userService
+      .getUsers()
+      .pipe(
+        tap((users) => {
+          this.dataSource.data = users;
+          this.allUsersData = users;
+          this.loading = false;
+        })
+      )
+      .subscribe();
   }
 }

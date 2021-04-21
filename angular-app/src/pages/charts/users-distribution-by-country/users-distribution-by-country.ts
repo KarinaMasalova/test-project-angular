@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 import { UserService } from '../../../common/services/user/user.service';
 import * as colors from '../../../common/constants/colors';
@@ -16,7 +17,7 @@ import {
 })
 export class UsersDistributionByCountryComponent implements OnInit {
   public chartType = 'horizontalBar';
-  public chartLabels: Array<string> = [];
+  public chartLabels: Array<string> = [''];
   public chartDatasets: Array<ChartDatasets> = [];
   public chartReady = false;
   public chartColors: ChartColors[] = [
@@ -56,16 +57,24 @@ export class UsersDistributionByCountryComponent implements OnInit {
   }
 
   private setChartData(): void {
-    this.userService.getUsers().subscribe((users) => {
-      this.setMapCollection(users);
-      for (const [key, value] of this.mapCollection) {
-        this.valuesArray = [...this.valuesArray, value.length];
-        this.chartLabels = [...this.chartLabels, key];
-      }
-      this.chartDatasets = [
-        { data: this.valuesArray, label: 'People from Different Countries' },
-      ];
-      this.chartReady = true;
-    });
+    this.userService
+      .getUsers()
+      .pipe(
+        tap((users) => {
+          this.setMapCollection(users);
+          for (const [key, value] of this.mapCollection) {
+            this.valuesArray = [...this.valuesArray, value.length];
+            this.chartLabels = [...this.chartLabels, key];
+          }
+          this.chartDatasets = [
+            {
+              data: this.valuesArray,
+              label: 'People from Different Countries',
+            },
+          ];
+          this.chartReady = true;
+        })
+      )
+      .subscribe();
   }
 }

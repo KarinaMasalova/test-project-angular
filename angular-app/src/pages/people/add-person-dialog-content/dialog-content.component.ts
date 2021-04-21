@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { UserService } from '../../../common/services/user/user.service';
 import { User, UserRoles } from '../../../common/models/user/user';
@@ -24,7 +25,7 @@ export class DialogContentComponent implements OnInit {
     private readonly userService: UserService,
     private readonly snackBar: MatSnackBar
   ) {
-    this.addPersonForm = this.initFormGroup();
+    this.addPersonForm = DialogContentComponent.initFormGroup();
   }
 
   public showSnackbar(): void {
@@ -55,10 +56,11 @@ export class DialogContentComponent implements OnInit {
   private getAllConnections(): Subscription {
     return this.userService
       .getUsers()
-      .subscribe((users) => (this.connectionsList = users));
+      .pipe(tap((users) => (this.connectionsList = users)))
+      .subscribe();
   }
 
-  private initFormGroup(): FormGroup {
+  private static initFormGroup(): FormGroup {
     return new FormGroup({
       avatar: new FormControl('', Validators.required),
       firstName: new FormControl('', Validators.required),
