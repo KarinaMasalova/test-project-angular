@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 enum Tabs {
   people = 'people',
@@ -17,12 +18,16 @@ export class HeaderTabPanelComponent {
   private currentRoute: string | undefined;
 
   constructor(private readonly router: Router) {
-    router.events.subscribe((event) => {
-      if (event instanceof RouterEvent) {
-        this.currentRoute = event.url;
-        this.activeLink =
-          this.currentRoute === '/people' ? this.tabs.people : this.tabs.charts;
-      }
-    });
+    router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        if (event instanceof RouterEvent) {
+          this.currentRoute = event.url;
+          this.activeLink =
+            this.currentRoute === '/people'
+              ? this.tabs.people
+              : this.tabs.charts;
+        }
+      });
   }
 }

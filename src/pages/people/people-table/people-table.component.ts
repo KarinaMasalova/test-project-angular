@@ -10,6 +10,7 @@ import { tap } from 'rxjs/operators';
 import { User, UserRoles } from '../../../common/models/user/user';
 import { UserService } from '../../../common/services/user/user.service';
 import { DialogContentComponent } from '../add-person-dialog-content/dialog-content.component';
+import { PeopleStore } from './people.store';
 
 const columns = [
   'select',
@@ -49,6 +50,7 @@ const initialFilters: InitialFilters = {
   selector: 'app-people-table',
   templateUrl: './people-table.component.html',
   styleUrls: ['./people-table.component.scss'],
+  providers: [PeopleStore]
 })
 export class PeopleTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
@@ -59,6 +61,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
     (i) => !(typeof i === 'number')
   );
   public displayedColumns: string[] = columns;
+  public users$ = this.peopleStore.users$;
   public dataSource: MatTableDataSource<User>; // filtered users
   public selection = new SelectionModel<User>(true, []);
   public loading = true;
@@ -66,7 +69,8 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   constructor(
     private readonly userService: UserService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly peopleStore: PeopleStore
   ) {
     this.dataSource = new MatTableDataSource();
   }
