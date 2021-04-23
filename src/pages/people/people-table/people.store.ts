@@ -10,9 +10,16 @@ export interface UsersState {
 
 @Injectable()
 export class PeopleStore extends ComponentStore<UsersState> {
-  public readonly users$: Observable<User[]> = this.select(state => state.users);
+  public readonly users$: Observable<User[]> = this.select(
+    (state) => state.users
+  );
+  public usersAmount$: Observable<number> = this.select(
+    (state) => state.users.length
+  );
 
   constructor() {
-    super({users: []});
+    super({
+      users: [],
+    });
   }
 }

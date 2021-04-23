@@ -125,8 +125,8 @@
       <th mat-header-cell *matHeaderCellDef>
         <mat-checkbox
           (change)="toggleCheckbox()"
-          [checked]="selection.hasValue() && isAllUsersSelected"
-          [indeterminate]="selection.hasValue() && !isAllUsersSelected"
+          [checked]="selection.hasValue() && !!(isAllUsersSelected() | async)"
+          [indeterminate]="selection.hasValue() && !(isAllUsersSelected() | async)"
         >
         </mat-checkbox>
       </th>
