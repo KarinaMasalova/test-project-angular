@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { UserService } from '../../../common/services/user/user.service';
 import { User, UserRoles } from '../../../common/models/user/user';
+import { SnackbarService } from '../../../common/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-dialog-content',
@@ -19,45 +19,12 @@ export class DialogContentComponent implements OnInit {
   public roles = Object.values(UserRoles).filter(
     (i) => !(typeof i === 'number')
   );
-  private durationInSeconds = 5;
 
   constructor(
     private readonly userService: UserService,
-    private readonly snackBar: MatSnackBar
+    private readonly snackbar: SnackbarService
   ) {
     this.addPersonForm = DialogContentComponent.initFormGroup();
-  }
-
-  public showSnackbar(): void {
-    this.snackBar.open(
-      "ERROR: the user wasn't added. Please, make sure that " +
-        'all the fields are filled in.',
-      'OK',
-      {
-        duration: this.durationInSeconds * 1000,
-        horizontalPosition: 'end',
-        panelClass: ['error-snackbar'],
-      }
-    );
-  }
-
-  public addPeople(): Subscription | undefined {
-    if (!this.addPersonForm.valid) {
-      this.showSnackbar();
-      return;
-    }
-    return this.userService.addUser(this.addPersonForm.value).subscribe();
-  }
-
-  ngOnInit(): void {
-    this.getAllConnections();
-  }
-
-  private getAllConnections(): Subscription {
-    return this.userService
-      .getUsers()
-      .pipe(tap((users) => (this.connectionsList = users)))
-      .subscribe();
   }
 
   private static initFormGroup(): FormGroup {
@@ -76,5 +43,29 @@ export class DialogContentComponent implements OnInit {
       company: new FormControl('', Validators.required),
       connections: new FormControl([]),
     });
+  }
+
+  public addPeople(): Subscription | undefined {
+    if (!this.addPersonForm.valid) {
+      this.snackbar.showSnackbar(
+        "ERROR: the user wasn't added. Please, make sure that " +
+          'all the fields are filled in.',
+        'OK',
+        5000
+      );
+      return;
+    }
+    return this.userService.addUser(this.addPersonForm.value).subscribe();
+  }
+
+  ngOnInit(): void {
+    this.getAllConnections();
+  }
+
+  private getAllConnections(): Subscription {
+    return this.userService
+      .getUsers()
+      .pipe(tap((users) => (this.connectionsList = users)))
+      .subscribe();
   }
 }
