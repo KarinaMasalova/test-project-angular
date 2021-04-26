@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PeopleTableComponent } from './people-table/people-table.component';
+import { SearchFiltersComponent } from './people-table/search-filters/search-filters.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +17,7 @@ import { LoaderModule } from '../../common/components/loader/loader.module';
 import { DialogModule } from './add-person-dialog-content/dialog.module';
 
 @NgModule({
-  declarations: [PeopleTableComponent],
+  declarations: [SearchFiltersComponent, PeopleTableComponent],
   imports: [
     CommonModule,
     MatTableModule,

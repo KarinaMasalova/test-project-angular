@@ -1,6 +1,6 @@
 export interface Filters {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   country: string;
   city: string;
   age: string;
@@ -8,8 +8,8 @@ export interface Filters {
 }
 
 export const initialFilters: Filters = {
-  firstname: '',
-  lastname: '',
+  firstName: '',
+  lastName: '',
   country: '',
   city: '',
   age: '',

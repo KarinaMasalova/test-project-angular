@@ -1,0 +1,97 @@
+<div class="search-filters">
+  <h1 class="search-filters_title">Our people</h1>
+  <div class="search-filters_fields">
+    <mat-form-field>
+      <mat-label>Firstname...</mat-label>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.firstName"
+          name="firstname"
+          placeholder="Ex. Mia"
+          autocomplete="off"
+        />
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lastname...</mat-label>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.lastName"
+          name="lastname"
+          placeholder="Ex. Smith"
+          autocomplete="off"
+        />
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Country...</mat-label>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.country"
+          name="country"
+          placeholder="Ex. Austria"
+          autocomplete="off"
+        />
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>City...</mat-label>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.city"
+          name="city"
+          placeholder="Ex. Vienna"
+          autocomplete="off"
+        />
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Age...</mat-label>
+      <label>
+        <input
+          matInput
+          [(ngModel)]="filters.age"
+          name="age"
+          placeholder="Ex. 21"
+          autocomplete="off"
+        />
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Role...</mat-label>
+      <mat-select
+        [(ngModel)]="filters.role"
+        name="role"
+      >
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{ role }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="search-filters_buttons">
+    <button
+      mat-stroked-button
+      class="button button_reset"
+      (click)="resetFilters()"
+    >
+      RESET FILTERS
+    </button>
+    <button
+      mat-stroked-button
+      class="button button_search"
+      (click)="onSearchButtonClick()"
+    >
+      SEARCH
+    </button>
+  </div>
+</div>

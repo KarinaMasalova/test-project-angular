@@ -1,106 +1,4 @@
-<div class="search-filters">
-  <h1 class="search-filters_title">Our people</h1>
-  <div class="search-filters_fields">
-    <mat-form-field>
-      <mat-label>Firstname...</mat-label>
-      <label>
-        <input
-          matInput
-          [(ngModel)]="filters.firstname"
-          name="firstname"
-          placeholder="Ex. Mia"
-          #firstname
-          autocomplete="off"
-        />
-      </label>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Lastname...</mat-label>
-      <label>
-        <input
-          matInput
-          [(ngModel)]="filters.lastname"
-          name="lastname"
-          placeholder="Ex. Smith"
-          #lastname
-          autocomplete="off"
-        />
-      </label>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Country...</mat-label>
-      <label>
-        <input
-          matInput
-          [(ngModel)]="filters.country"
-          name="country"
-          placeholder="Ex. Austria"
-          #country
-          autocomplete="off"
-        />
-      </label>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>City...</mat-label>
-      <label>
-        <input
-          matInput
-          [(ngModel)]="filters.city"
-          name="city"
-          placeholder="Ex. Vienna"
-          #city
-          autocomplete="off"
-        />
-      </label>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Age...</mat-label>
-      <label>
-        <input
-          matInput
-          [(ngModel)]="filters.age"
-          name="age"
-          placeholder="Ex. 21"
-          #age
-          autocomplete="off"
-        />
-      </label>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Role...</mat-label>
-      <mat-select
-        [(ngModel)]="filters.role"
-        name="role"
-        #role
-      >
-        <mat-option *ngFor="let role of roles" [value]="role">
-          {{ role }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div class="search-filters_buttons">
-    <button
-      mat-stroked-button
-      class="button button_reset"
-      (click)="resetFilters()"
-    >
-      RESET FILTERS
-    </button>
-    <button
-      mat-stroked-button
-      class="button button_search"
-      (click)="onSearchButtonClick()"
-    >
-      SEARCH
-    </button>
-  </div>
-</div>
+<app-search-filters></app-search-filters>
 
 <div *ngIf="!selection.selected.length" class="selected-bar inactive">
   <button mat-stroked-button (click)="openDialog()">ADD PERSON</button>
@@ -225,9 +123,7 @@
 
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="14">
-        No data matching such filters. Firstname: "{{ firstname.value }}", lastname:
-        "{{ lastname.value }}", country: "{{country.value}}", city: "{{city.value}}",
-        age: "{{ age.value }}" and role: "{{ role.value }}".
+        No data matching such filters.
       </td>
     </tr>
   </table>

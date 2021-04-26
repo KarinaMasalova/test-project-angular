@@ -5,13 +5,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
-import { User, UserRoles } from '../../../common/models/user/user';
+import { User } from '../../../common/models/user/user';
 import { UserService } from '../../../common/services/user/user.service';
 import { DialogContentComponent } from '../add-person-dialog-content/dialog-content.component';
 import { PeopleStore } from './people.store';
-import { initialFilters } from '../../../common/models/user/filters';
 
 const columns = [
   'select',
@@ -39,10 +38,6 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
-  public filters = initialFilters;
-  public roles = Object.values(UserRoles).filter(
-    (i) => !(typeof i === 'number')
-  );
   public displayedColumns: string[] = columns;
   public users$ = this.peopleStore.users$;
   public dataSource: MatTableDataSource<User> = new MatTableDataSource();
@@ -69,32 +64,6 @@ export class PeopleTableComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.getAllUsers();
-  }
-
-  public resetFilters(): void {
-    this.filters = {
-      firstname: '',
-      lastname: '',
-      country: '',
-      city: '',
-      age: '',
-      role: '',
-    };
-    this.getAllUsers();
-  }
-
-  public onSearchButtonClick(): void {
-    this.userService
-      .getUsersByFilters(this.filters)
-      .pipe(
-        tap((users) => {
-          this.peopleStore.setState((state) => ({
-            ...state,
-            users,
-          }));
-        })
-      )
-      .subscribe();
   }
 
   public isAllUsersSelected(): Observable<boolean> {

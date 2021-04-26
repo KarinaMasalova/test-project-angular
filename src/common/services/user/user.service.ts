@@ -39,7 +39,7 @@ export class UserService {
           ...filters,
           [fieldName]: value,
         };
-        fullUrl += `${fieldName}=${value}`;
+        fullUrl += `${fieldName}=${value}&`;
       } else {
         // @ts-ignore
         delete filters[fieldName];

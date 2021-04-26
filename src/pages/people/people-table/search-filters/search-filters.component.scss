@@ -1,0 +1,52 @@
+@import '../../../../common-scss/colors.scss';
+
+:host {
+  display: block;
+}
+
+.search-filters {
+  width: 100%;
+  border: 1px solid $colorPrimary;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+
+  &_title {
+    color: $colorPrimary;
+  }
+
+  &_fields {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .mat-form-field {
+      width: 27%;
+    }
+  }
+
+  &_buttons {
+    text-align: right;
+
+    .button {
+      border-color: $colorPrimary;
+      margin: 20px 10px 0 0;
+      max-width: 140px;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &_search {
+        background-color: $colorPrimary;
+        color: #fff;
+      }
+    }
+  }
+}
