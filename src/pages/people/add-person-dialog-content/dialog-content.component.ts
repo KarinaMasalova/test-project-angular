@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Subscription, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { UserService } from '../../../common/services/user/user.service';
 import { User, UserRoles } from '../../../common/models/user/user';
@@ -55,7 +55,21 @@ export class DialogContentComponent implements OnInit {
       );
       return;
     }
-    return this.userService.addUser(this.addPersonForm.value).subscribe();
+    return this.userService
+      .addUser(this.addPersonForm.value)
+      .pipe(
+        catchError((err) => {
+          if (err) {
+            this.snackbar.showSnackbar(
+              "ERROR: The user wasn't added.",
+              'OK',
+              5000
+            );
+          }
+          return throwError(err.statusText);
+        })
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {

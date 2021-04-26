@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { UserService } from '../../../common/services/user/user.service';
 import { roundNumber } from '../../../common/utils/roundNumber';
@@ -10,6 +10,8 @@ import {
   ChartDatasets,
   ChartOptions,
 } from '../../../common/models/chart/chart';
+import { throwError } from 'rxjs';
+import { SnackbarService } from '../../../common/services/snackbar/snackbar.service';
 
 enum ChartLabels {
   clients = 'Clients',
@@ -47,7 +49,10 @@ export class UserRatioByRoleComponent implements OnInit {
     responsive: true,
   };
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly snackbar: SnackbarService
+  ) {}
 
   ngOnInit(): void {
     this.setPeopleAmount();
@@ -57,6 +62,16 @@ export class UserRatioByRoleComponent implements OnInit {
     this.userService
       .getUsers()
       .pipe(
+        catchError((err) => {
+          if (err) {
+            this.snackbar.showSnackbar(
+              'ERROR: No user information was received from the server.',
+              'OK',
+              5000
+            );
+          }
+          return throwError(err.statusText);
+        }),
         map((users) => {
           this.lawyersAmount = roundNumber(
             (users.filter((user) => user.role === UserRoles.lawyer).length *

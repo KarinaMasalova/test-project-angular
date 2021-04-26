@@ -38,7 +38,7 @@ export class SearchFiltersComponent {
         catchError((err) => {
           if (err) {
             this.snackbar.showSnackbar(
-              'No user information was received according to search filters.',
+              'ERROR: No user information was received according to search filters.',
               'OK',
               5000
             );
@@ -58,11 +58,25 @@ export class SearchFiltersComponent {
       age: '',
       role: '',
     };
-    this.userService.getUsers().subscribe((users) => {
-      this.peopleStore.setState((state) => ({
-        ...state,
-        users,
-      }));
-    });
+    this.userService
+      .getUsers()
+      .pipe(
+        catchError((err) => {
+          if (err) {
+            this.snackbar.showSnackbar(
+              'ERROR: No user information was received from the server.',
+              'OK',
+              5000
+            );
+          }
+          return throwError(err.statusText);
+        })
+      )
+      .subscribe((users) => {
+        this.peopleStore.setState((state) => ({
+          ...state,
+          users,
+        }));
+      });
   }
 }

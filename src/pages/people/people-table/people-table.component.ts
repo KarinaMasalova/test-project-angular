@@ -107,7 +107,11 @@ export class PeopleTableComponent implements AfterViewInit, OnInit, OnDestroy {
         .pipe(
           catchError((err) => {
             if (err) {
-              this.snackbar.showSnackbar("User wasn't deleted.", 'OK', 5000);
+              this.snackbar.showSnackbar(
+                "ERROR: The user wasn't deleted.",
+                'OK',
+                5000
+              );
             }
             return throwError(err.statusText);
           })
@@ -137,7 +141,7 @@ export class PeopleTableComponent implements AfterViewInit, OnInit, OnDestroy {
         catchError((err) => {
           if (err) {
             this.snackbar.showSnackbar(
-              "User information wasn't received from the server.",
+              "ERROR: User information wasn't received from the server.",
               'OK',
               5000
             );
